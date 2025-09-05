@@ -1,6 +1,10 @@
 # CS 260 Notes
 # Joseph Christensen
 
+## Markdown
+
+I learned a lot from this assignment. I have a greater understanding of GitHub aswell as Markdown. Although I have already used Markdown in R I learned how many different things you can do with font and modification of words.
+
 [My startup - Simon](https://simon.cs260.click)
 
 ## Helpful links
