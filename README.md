@@ -1,4 +1,5 @@
 # Your startup name here
+# Joseph Christensen
 
 [My Notes](notes.md)
 
