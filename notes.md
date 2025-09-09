@@ -4,9 +4,13 @@
 ## Diverdle
 
 1st Column: Weapon Category - Primary, Secondary, Support, Throwable
+
 2nd Column: Weapon Type - Assault Rifle, Marksman Rifle, Heavy, Explosive, Missiles, Anti-Tank
+
 3rd Column: Damage - Higher or Lower
+
 4th Column: Armor Penetration
+
 5th Column: Traits - None, Explosive, Flammable
 
 ## Markdown
