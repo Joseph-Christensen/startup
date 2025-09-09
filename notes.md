@@ -1,6 +1,14 @@
 # CS 260 Notes
 # Joseph Christensen
 
+## Diverdle
+
+1st Column: Weapon Category - Primary, Secondary, Support, Throwable
+2nd Column: Weapon Type - Assault Rifle, Marksman Rifle, Heavy, Explosive, Missiles, Anti-Tank
+3rd Column: Damage - Higher or Lower
+4th Column: Armor Penetration
+5th Column: Traits - None, Explosive, Flammable
+
 ## Markdown
 
 I learned a lot from this assignment. I have a greater understanding of GitHub aswell as Markdown. Although I have already used Markdown in R I learned how many different things you can do with font and modification of words.
