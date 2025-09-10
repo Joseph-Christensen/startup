@@ -1,5 +1,4 @@
-# Your startup name here
-# Joseph Christensen
+# Diverdle
 
 [My Notes](notes.md)
 
@@ -19,15 +18,15 @@ A brief description of the application here. Lorem ipsum dolor sit amet, consect
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
-- [ ] Description of how you will use each technology
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [x] Proper use of Markdown
+- [x] A concise and compelling elevator pitch
+- [x] Description of key features
+- [x] Description of how you will use each technology
+- [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Daily games have become a staple of millions of people's daily routine for years now, whether it was Wordle, the NYT mini crossword, or Connections, I would bet that you have played one of them before. Well now it's time to add another game to your daily routine, Diverdle! This is a daily game based off of the recent smash hit videogame Helldivers II. Players will try to guess what the weapon of the day is, while each guess reveals attributes that are shared between the weapon of the day and the current guessed weapon. Although it will be challenging, it will be a great addition to your daily routine!
 
 ### Design
 
