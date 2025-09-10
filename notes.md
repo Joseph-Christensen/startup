@@ -3,7 +3,7 @@
 
 ## Diverdle
 
-1st Column: Weapon Category - Primary, Secondary, Support, Throwable
+1st Column: Weapon Category - Primary, Secondary, Support
 
 2nd Column: Weapon Type - Assault Rifle, Marksman Rifle, Heavy, Explosive, Missiles, Anti-Tank
 
