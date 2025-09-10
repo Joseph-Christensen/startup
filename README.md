@@ -26,11 +26,11 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ### Elevator pitch
 
-Daily games have become a staple of millions of people's daily routine for years now, whether it was Wordle, the NYT mini crossword, or Connections, I would bet that you have played one of them before. Well now it's time to add another game to your daily routine, Diverdle! This is a daily game based off of the recent smash hit videogame Helldivers II. Players will try to guess what the weapon of the day is, while each guess reveals attributes that are shared between the weapon of the day and the current guessed weapon. Although it will be challenging, it will be a great addition to your daily routine!
+Daily games have become a staple of millions of people's daily routine for years now, whether it is Wordle, the NYT mini crossword, or Connections, I would bet that you have played one of them before. Well now it's time to add another game to your daily routine, Diverdle! This is a daily game based off of the recent smash hit videogame Helldivers II. Players will try to guess what the weapon of the day is, while each guess reveals attributes that are shared between the weapon of the day and the current guessed weapon. Although it will be challenging, it will be a great addition to your daily routine!
 
 ### Design
 
-![Design image](placeholder.png)
+![Design image](images/Login.jpg)![Design image](images/Game.jpg)![Design image](images/HelpPage.jpg)
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
@@ -43,20 +43,24 @@ sequenceDiagram
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- Capability to create an account and login
+- Ability to randomly select the weapon of the day out of a pool
+- Text Entry with an auto complete
+- Display of common features between the weapon of the day and the guess
+- Help tab to explain the rules of the game and how to play
+- Ability to store historical scores
+- Ability to compare with other user's score on that day
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - Correct HTML structure. Three HTML Pages. One for login, one for the help page, and the last for the game and display of scores.
+- **CSS** - Stylying to make the site look more like the Helldivers II menu, Animation of the boxes after the guess.
+- **React** - Functionality for entering guesses as well as the logic for the guesses.
+- **Service** - Storing scores, Login, Logout, Registering, getting inspirational quotes from https://forismatic.com/en/api/ 
+- **DB/Login** - Stores information about accounts and their historical scores
+- **WebSocket** - Displaying scoring data about other users.
 
 ## 🚀 AWS deliverable
 
