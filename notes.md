@@ -1,6 +1,12 @@
 # CS 260 Notes
 # Joseph Christensen
 
+## AWD Server notes
+
+ssh -i /c/Users/willi/OneDrive/Documents/BYU/2025_Fall/CS260/keys/JosephCKeyDiver.pem ubuntu@34.224.200.232
+
+34.224.200.232
+
 ## Diverdle
 
 1st Column: Weapon Category - Primary, Secondary, Support
