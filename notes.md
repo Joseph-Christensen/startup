@@ -33,8 +33,11 @@ I learned a lot from this assignment. I have a greater understanding of GitHub a
 
 ## AWS
 
-My IP address is: 54.81.96.130
-Launching my AMI I initially put it on a private subnet. Even though it had a public IP address and the security group was right, I wasn't able to connect to it.
+ssh -i /c/Users/willi/OneDrive/Documents/BYU/2025_Fall/CS260/keys/JosephCKeyDiver.pem ubuntu@34.224.200.232
+
+34.224.200.232
+ 
+If the server isn't working, just reboot.
 
 ## Caddy
 
@@ -44,7 +47,7 @@ No problems worked just like it said in the [instruction](https://github.com/web
 
 This was easy. I was careful to use the correct structural elements such as header, footer, main, nav, and form. The links between the three views work great using the `a` element.
 
-The part I didn't like was the duplication of the header and footer code. This is messy, but it will get cleaned up when I get to React.
+Experiment untilit looks right, this doesn't need to be pretty, just have all the elements.
 
 ## CSS
 
@@ -90,6 +93,10 @@ I also used SVG to make the icon and logo for the app. This turned out to be a p
   <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="72" font-family="Arial" fill="white">C</text>
 </svg>
 ```
+
+# Notes
+
+CSS has so many possibilites, don't stress too much about it, think of what you want to do, ask ai how to do it and it will help a bunch.
 
 ## React Part 1: Routing
 
