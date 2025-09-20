@@ -88,7 +88,7 @@ I also used SVG to make the icon and logo for the app. This turned out to be a p
 </svg>
 ```
 
-# Notes
+### Notes
 
 CSS has so many possibilites, don't stress too much about it, think of what you want to do, ask ai how to do it and it will help a bunch.
 
