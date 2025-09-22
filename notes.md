@@ -41,7 +41,11 @@ No problems worked just like it said in the [instruction](https://github.com/web
 
 This was easy. I was careful to use the correct structural elements such as header, footer, main, nav, and form. The links between the three views work great using the `a` element.
 
-Experiment untilit looks right, this doesn't need to be pretty, just have all the elements.
+Experiment until it looks right, this doesn't need to be pretty, just have all the elements.
+
+I finished the simon html assingment, I deployed it and the new deployed files are showing up when I go straight to simon.diverdle.click, but not when I go through the links in the site.
+
+To debug you can use inspect element.
 
 ## CSS
 
