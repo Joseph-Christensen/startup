@@ -47,6 +47,10 @@ I finished the simon html assingment, I deployed it and the new deployed files a
 
 To debug you can use inspect element.
 
+To deploy files:
+
+./deployFiles.sh -k /c/Users/willi/OneDrive/Documents/BYU/2025_Fall/CS260/keys/JosephCKeyDiver.pem -h diverdle.click -s simon or startup
+
 ## CSS
 
 This took a couple hours to get it how I wanted. It was important to make it responsive and Bootstrap helped with that. It looks great on all kinds of screen sizes.
