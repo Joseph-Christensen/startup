@@ -2,7 +2,9 @@
 
 [My Notes](notes.md)
 
-A brief description of the application here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Diverdle is a daily guessing game where you try to identify the day's featured weapon from Arrowhead's hit title, Helldivers II. 
+Released in February 2024, Helldivers II has quickly become a fan favorite among gamers worldwide.
+Now it's your turn to put your knowledge of its vast arsenal to the test with Diverdle!
 
 ## 🚀 Specification Deliverable
 
@@ -53,15 +55,15 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [x] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - 4 HTML pages for the login, game, storing scores, and about page.
+- [x] **Proper HTML element usage** - I properly used HTML tags including BODY, NAV, MAIN, HEADER, FOOTER, DIV
+- [x] **Links** - The login page automatically links to the game page. All of the links in the header work.
+- [x] **Text** - Each of the weapon properties are well explained. I had both an about and how to play section.
+- [x] **3rd party API placeholder** - I had a placeholder for the inspirational quotes
+- [x] **Images** - I had multiple images on my website
+- [x] **Login placeholder** - I had a login placeholder
+- [x] **DB data placeholder** - I had a display of scores from other players, I had a comparison against past scores from past plays
+- [x] **WebSocket placeholder** - I did a comparison against other players that day.
 
 ## 🚀 CSS deliverable
 
