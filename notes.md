@@ -51,6 +51,10 @@ To deploy files:
 
 ./deployFiles.sh -k /c/Users/willi/OneDrive/Documents/BYU/2025_Fall/CS260/keys/JosephCKeyDiver.pem -h diverdle.click -s simon or startup
 
+HTML Deliverable:
+
+I just finished the startup HTML assignment and I learned that HTML by itself is very ugly, but the structure is all I need for now. I can also change stuff later if the HTML I have right now won't work out.
+
 ## CSS
 
 This took a couple hours to get it how I wanted. It was important to make it responsive and Bootstrap helped with that. It looks great on all kinds of screen sizes.

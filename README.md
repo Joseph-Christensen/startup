@@ -62,8 +62,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **3rd party API placeholder** - I had a placeholder for the inspirational quotes
 - [x] **Images** - I had multiple images on my website
 - [x] **Login placeholder** - I had a login placeholder
-- [x] **DB data placeholder** - I had a display of scores from other players, I had a comparison against past scores from past plays
-- [x] **WebSocket placeholder** - I did a comparison against other players that day.
+- [x] **DB data placeholder** - I had a display of top scores of the day, I had a comparison against past scores from past plays
+- [x] **WebSocket placeholder** - I did a placeholder for a comparison against other players that day.
 
 ## 🚀 CSS deliverable
 
