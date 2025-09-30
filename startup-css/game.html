@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Tell browsers not to scale the viewport automatically -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diverdle</title>
+    <link rel="icon" href="DiverdleIcon.ico" />
+  </head>
+  <body>
+    <header>
+        <img id = "logo" src="Diverdle.png" alt="DIVERDLE" width = "471" height="268">
+        <nav>
+            <menu>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="game.html">Game</a></li>
+                <li><a href="scores.html">Scores</a></li>
+                <li><a href="about.html">How To Play</a></li>
+            </menu>
+        </nav>
+        <hr>
+    </header>
+
+    <main>
+        <div>
+            <p>Hi Player-Username!</p>
+            <p>Guess the Weapon of the Day</p>
+        </div>
+
+        <!-- Table for results -->
+        <table id="guessTable">
+            <thead>
+                <tr>
+                    <th>Weapon</th>
+                    <th>Weapon Category</th>
+                    <th>Weapon Type</th>
+                    <th>Damage</th>
+                    <th>Armor Pentration</th>
+                    <th>Traits</th>
+                </tr>
+            </thead>
+            <tbody>
+            <!-- Example Guess -->
+                <tr>
+                    <td>?</td>
+                    <td>?</td>
+                    <td>?</td>
+                    <td>?</td>
+                    <td>?</td>
+                    <td>?</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+
+        <!-- Input form for guesses -->
+        <form id="guessForm">
+            <input type = "text" placeholder = "Enter your weapon guess">
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+
+    <footer>
+        <hr>
+      <span class="text-reset">Joseph Christensen</span>
+      <br>
+      <a href="https://github.com/Joseph-Christensen/startup" target = "_blank">GitHub</a>
+    </footer>
+  </body>
+</html>
