@@ -11,3 +11,25 @@ section {
   font-size: 1.1rem;
   color: #ddd;
 }
+
+blockquote {
+    border-left: 4px solid #ffd700;
+    padding-left: 1rem;
+    color: #ccc;
+    font-style: italic;
+    margin-bottom: 0;
+}
+
+.inspo-quote {
+    color: #ccc;
+    font-style: italic;
+}
+
+.inspo-quote .author {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #ffd700;
+    font-style: normal;
+    text-align: right;
+}
