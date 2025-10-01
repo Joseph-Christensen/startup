@@ -1,3 +1,11 @@
+#guessTable th, #guessTable td {
+    white-space: normal;
+    word-wrap: break-word;
+    font-size: 0.9rem;
+    vertical-align: middle;
+    padding: 0.75;
+}
+
 .correct {
     background-color: #2e8b57 !important; /* Green */
     color: #fff !important;
@@ -9,8 +17,4 @@
 .incorrect {
     background-color: #b22222 !important; /* Red (Firebrick) */
     color: #fff !important;
-}
-
-form {
-    margin-top: 1.5rem;
 }
