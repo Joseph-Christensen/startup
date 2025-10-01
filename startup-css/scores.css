@@ -4,16 +4,22 @@ main {
 }
 
 h2 {
-    text-transform: 800px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 table th {
-  font-weight: 700;
+    font-weight: 700;
 }
 
 table td {
-  font-size: 0.95rem;
+    font-size: 0.95rem;
+}
+
+#scoresHead th {
+    background-color: #000 !important;
+    color: #ffd700 !important;
+    background-image: none !important;
+    border-color: #444 !important;
 }
 
 .lead {
