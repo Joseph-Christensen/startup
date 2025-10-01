@@ -29,3 +29,17 @@
     background-color: #b22222 !important; /* Red (Firebrick) */
     color: #fff !important;
 }
+
+.higher::after {
+    content: " ↑";
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.lower::after {
+    content: " ↓";
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: bold;
+}
