@@ -2,3 +2,12 @@ main {
   max-width: 800px;
   margin: 3rem auto;
 }
+
+section {
+  margin-bottom: 2rem;
+}
+
+.lead {
+  font-size: 1.1rem;
+  color: #ddd;
+}
