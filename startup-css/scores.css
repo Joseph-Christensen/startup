@@ -15,3 +15,8 @@ table th {
 table td {
   font-size: 0.95rem;
 }
+
+.lead {
+  font-size: 1.1rem;
+  color: #ddd;
+}
