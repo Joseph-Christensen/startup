@@ -106,6 +106,8 @@ CSS has so many possibilites, don't stress too much about it, think of what you 
 
 I have learned that CSS can do a bunch of really cool things, I would say to get a template kind of thing and then adjust stuff from there.
 
+Frameworks like Bootstrap are incredibly useful, but it is hard to find specific things out of them. I had to use ai to find the things I wanted out of the framework I used.
+
 ## React Part 1: Routing
 
 Setting up Vite and React was pretty simple. I had a bit of trouble because of conflicting CSS. This isn't as straight forward as you would find with Svelte or Vue, but I made it work in the end. If there was a ton of CSS it would be a real problem. It sure was nice to have the code structured in a more usable way.
