@@ -34,23 +34,24 @@
           your arsenal knowledge to the test!
         </p>
       </section>
-      <div id = "HowToPlay">
-        <h2>How To Play</h2>
-        <p>
-          To play Diverdle, simply type in the name of a weapon and it's properties will be revealed.
-          The color of the boxes will show how close your guessed weapon was to the weapon of the day. 
-        </p>
-        <p>
-          Green indicates that the weapon shares a common property with the weapon of the day.
-        </p>
-        <p>
-          Yellow indicates that the properties partially match.
-        </p>
-        <p>
-          Red indicates that the properties do not match.
-          If the property is numerical, there will also be an up or down arrow to indicate whether the value for the weapon of the day is higher or lower.
-        </p>
-      </div>
+      <section class="mb-5">
+        <h2 class="text-warning">How To Play</h2>
+        <ul class="list-group list-group-flush bg-transparent">
+          <li class="list-group-item bg-transparent text-light">
+            To play Diverdle, simply type in the name of a weapon and it's properties will be revealed. The color of the tiles will show how close your guessed weapon was to the weapon of the day.
+          </li>
+          <li class="list-group-item bg-transparent text-success">
+            <strong>Green:</strong> Correct property match.
+          </li>
+          <li class="list-group-item bg-transparent text-warning">
+            <strong>Yellow:</strong> Partial property match.
+          </li>
+          <li class="list-group-item bg-transparent text-danger">
+            <strong>Red:</strong> No match. For numerical properties, arrows indicate higher/lower.
+          </li>
+          <br>
+        </ul>
+      </section>
       <div id = "Properties">
           <h1 id = "PropertyTitle">Types of Properties</h2>
           <br>
