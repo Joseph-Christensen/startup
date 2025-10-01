@@ -1,8 +1,17 @@
-table th {
-  color: #ffd700 !important;
+main {
+  max-width: 800px;
+  margin: auto;
 }
 
-main {
-  text-align: center;
-  margin-top: 2rem;
+h2 {
+    text-transform: 800px;
+    font-weight: 700;
+}
+
+table th {
+  font-weight: 700;
+}
+
+table td {
+  font-size: 0.95rem;
 }
