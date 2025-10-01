@@ -24,37 +24,39 @@
         </nav>
     </header>
 
-    <main>
+    <main class="container my-5 text-center">
+        
         <div>
             <p>Hi Player-Username!</p>
             <p>Guess the Weapon of the Day</p>
         </div>
 
         <!-- Table for results -->
-        <table id="guessTable">
-            <thead>
-                <tr id = "categories">
-                    <th>Weapon</th>
-                    <th>Weapon Category</th>
-                    <th>Weapon Type</th>
-                    <th>Damage</th>
-                    <th>Armor Pentration</th>
-                    <th>Traits</th>
-                </tr>
-            </thead>
-            <tbody>
-            <!-- Example Guess -->
-                <tr class = "guesses">
-                    <td class = "correct">?</td>
-                    <td class = "partial">?</td>
-                    <td class = "incorrect">?</td>
-                    <td>?</td>
-                    <td>?</td>
-                    <td>?</td>
-                </tr>
-            </tbody>
-        </table>
-        <br>
+        <div class="table-responsive">
+            <table id="guessTable" class="table table-dark table-bordered align-middle text-center">
+                <thead>
+                    <tr id = "categories">
+                        <th>Weapon</th>
+                        <th>Weapon Category</th>
+                        <th>Weapon Type</th>
+                        <th>Damage</th>
+                        <th>Armor Pentration</th>
+                        <th>Traits</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <!-- Example Guess -->
+                    <tr class = "guesses">
+                        <td class = "correct">?</td>
+                        <td class = "partial">?</td>
+                        <td class = "incorrect">?</td>
+                        <td>?</td>
+                        <td>?</td>
+                        <td>?</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <!-- Input form for guesses -->
         <form id="guessForm">
