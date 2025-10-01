@@ -1,0 +1,16 @@
+.correct {
+    background-color: #2e8b57 !important; /* Green */
+    color: #fff !important;
+}
+.partial {
+    background-color: #ffd700 !important; /* Yellow */
+    color: #000 !important;
+}
+.incorrect {
+    background-color: #b22222 !important; /* Red (Firebrick) */
+    color: #fff !important;
+}
+
+form {
+    margin-top: 1.5rem;
+}
