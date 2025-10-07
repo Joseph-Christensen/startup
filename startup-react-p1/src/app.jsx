@@ -13,7 +13,7 @@ export default function App() {
     <BrowserRouter>
       <div className="body">
           <header>
-              <img id = "logo" src="./public/Diverdle.png" alt="DIVERDLE" width = "325"/>
+              <img id = "logo" src="diverdle.png" alt="DIVERDLE" width = "325"/>
               <nav>
                   <ul className = "nav justify-content-center">
                       <li className = "nav-item"><NavLink className="nav-link text-warning" to="">Login</NavLink></li>
