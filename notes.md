@@ -1,6 +1,40 @@
 # CS 260 Notes
 # Joseph Christensen
 
+## Midterm Review Session
+
+<p id = "q"><p/>
+
+<p class = "p"><p/>
+
+id: #q
+class: .p
+
+Promises will return a value but just not yet:
+  - Two Values we care about
+    - accept
+    - reject
+  - Mostly for BackEnd
+  - Many possibiblites depending on promise behavior. Examples:
+    - Promise.resolve('Done').then(console.log) -> 'Done'
+    - Promise.reject('Error').catch(consle.error) -> 'Error'
+    - new Promise(res => setTimeout (() => res('Hi'), 1000)).then(console.log) -> 'Hi' after 1s
+    - Promise chain: Promise.resolve(2).then(x=>x*2).then(x=>x+1).then(console.log) -> 5
+
+What does the console command chmod, pwd, cd, ls, vim, nano, mkdir, mv, rm, man, ssh, ps, wget, sudo do?
+ - chmod - change permissions, pwd - print working directory, cd - change directory, ls - list files, vim/nano - text
+  editors, mkdir - make directory, mv - move/rename, rm - remove, man - manual, ssh - remote shell, ps -
+  processes, wget - download files, sudo - run as admin
+
+How to import CSS into HTML:
+  - <link rel = 'stylesheet' href = 'style.css'>
+
+How to import JS into HTML:
+  - <script src= 'email.js'><script/>
+
+
+
+
 ## Diverdle
 
 1st Column: Weapon Category - Primary, Secondary, Support
