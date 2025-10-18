@@ -17,18 +17,18 @@ export default function App() {
               <nav>
                   <ul className = "nav justify-content-center">
                       <li className = "nav-item"><NavLink className="nav-link text-warning" to="">Login</NavLink></li>
-                      <li className = "nav-item"><NavLink className="nav-link text-warning" to="game">Game</NavLink></li>
+                      <li className = "nav-item"><NavLink className="nav-link text-warning" to="play">Play</NavLink></li>
                       <li className = "nav-item"><NavLink className="nav-link text-warning" to="scores">Scores</NavLink></li>
-                      <li className = "nav-item"><NavLink className="nav-link text-warning" to="about">Info</NavLink></li>
+                      <li className = "nav-item"><NavLink className="nav-link text-warning" to="info">Info</NavLink></li>
                   </ul>
               </nav>
           </header>
 
           <Routes>
             <Route path='/' element={<Login />} exact />
-            <Route path='/game' element={<Game />} />
+            <Route path='/play' element={<Game />} />
             <Route path='/scores' element={<Scores />} />
-            <Route path='/about' element={<About />} />
+            <Route path='/info' element={<About />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
 

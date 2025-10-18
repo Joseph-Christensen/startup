@@ -139,3 +139,5 @@ Handling the toggling of the checkboxes was particularly interesting.
   ))}
 </div>
 ```
+
+React 2 will be a huge project, I need to get started now. For my website I will copy the login code but adjust to be my own, probably also copy the scores code and the about code. The main part that is concerning is the game part of it.
