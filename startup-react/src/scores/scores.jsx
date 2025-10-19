@@ -3,13 +3,29 @@ import "./scores.css";
 
 export function Scores() {
     const [scores, setScores] = React.useState([]);
+    const [userRank, setUserRank] = React.useState(null);
+    const [pencentile, setPercentile] = React.useState(null);
 
     React.useEffect(() => {
         const scoresText = localStorage.getItem('scores');
         if (scoresText) {
+
             const parsedScores = JSON.parse(scoresText);
             parsedScores.sort((a, b) => a.score - b.score);
             setScores(parsedScores);
+
+            const username = localStorage.getItem('username');
+            if (username) {
+                const rank = parsedScores.findIndex(s => s.name === username) + 1;
+                if (rank > 0) {
+                    setUserRank(rank);
+                    let percentileValue = 100;
+                    if (parsedScores.length > 1) {
+                        percentileValue = ((parsedScores.length - rank) / (parsedScores.length - 1)) * 100;
+                    }
+                    setPercentile(Math.round(percentileValue));
+                }
+            }
         }
     }, [])
 
@@ -34,30 +50,50 @@ export function Scores() {
         );
     }
 
+    let statsSection = null;
 
-  return (
-    <main className="container my-5 text-center">
-        <h2 className="mb-4 text-warning">Today's Leaderboard</h2>
-
-        <div className="table-responsive">
-            <table id="scoresTable" className="table table-dark table-striped table-bordered align-middle text-center">
-                <thead id = "scoresHead">
-                    <tr>
-                        <th scope="col">Place</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Guesses</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {scoreRows}
-                </tbody>
-            </table>
-        </div>
-
+    if (userRank !== null && percentile !== null) {
+        statsSection = (
         <div className="mt-4">
-            <p className="lead">You placed higher than <span className="text-warning">90%</span> of other players.</p>
-            <p className="lead">Today's score was better than <span className="text-warning">54%</span> of your past scores.</p>
+            <p className="lead">
+            You placed <span className="text-warning">#{userRank}</span> out of{" "}
+            {scores.length} players today.
+            </p>
+            <p className="lead">
+            You scored better than{" "}
+            <span className="text-warning">{percentile}%</span> of other players
+            today.
+            </p>
         </div>
-    </main>
-  );
+        );
+    } else if (scores.length > 0) {
+        statsSection = (
+        <div className="mt-4">
+            <p className="lead">Play today to see your rank on the leaderboard!</p>
+        </div>
+        );
+    }
+
+
+    return (
+        <main className="container my-5 text-center">
+            <h2 className="mb-4 text-warning">Today's Leaderboard</h2>
+
+            <div className="table-responsive">
+                <table id="scoresTable" className="table table-dark table-striped table-bordered align-middle text-center">
+                    <thead id = "scoresHead">
+                        <tr>
+                            <th scope="col">Place</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Guesses</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {scoreRows}
+                    </tbody>
+                </table>
+            </div>
+            {statsSection}
+        </main>
+    );
 }
