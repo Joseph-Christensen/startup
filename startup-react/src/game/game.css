@@ -1,0 +1,45 @@
+#guessTable {
+    table-layout: fixed;
+    width: 100%;
+}
+
+#guessTable th, #guessTable td {
+    white-space: normal;
+    font-size: clamp(0.6rem, 1vw, 0.9rem);
+    vertical-align: middle;
+    padding: 0.75;
+}
+
+@media (max-width: 768px) {
+    #guessTable th,
+    #guessTable td {
+        font-size: 0.75rem;
+    }
+}
+
+.correct {
+    background-color: #2e8b57 !important; /* Green */
+    color: #fff !important;
+}
+.partial {
+    background-color: #f6be00 !important; /* Dark Yellow */
+    color: #fff !important;
+}
+.incorrect {
+    background-color: #b22222 !important; /* Red (Firebrick) */
+    color: #fff !important;
+}
+
+.higher::after {
+    content: " ↑";
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.lower::after {
+    content: " ↓";
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: bold;
+}
