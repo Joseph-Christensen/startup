@@ -70,7 +70,7 @@ export function About(props) {
             <div className="card bg-dark border-warning h-100">
               <div className="card-body">
                 <h5 className="card-title text-warning">Armor Penetration</h5>
-                <p className="card-text text-light">The level of Armor Penetration that the weapon has<br/><em>This value will be between 2 - 7 (Light - Anti-Tank III)</em></p>
+                <p className="card-text text-light">The level of Armor Penetration that the weapon has<br/><em>This value will be between 0 - 9 (None - Anti-Tank V)</em></p>
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@ export function About(props) {
       <section className="mb-0">
         <h2 className="text-warning">Inspirational Quote of the Day</h2>
         <blockquote className="inspo-quote">
-          {quote}
+          "{quote}"
           <br/>
           <span className="author">— {quoteAuthor}</span>
         </blockquote>
