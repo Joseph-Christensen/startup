@@ -2,6 +2,39 @@ import React from 'react';
 import "./scores.css";
 
 export function Scores() {
+    const [scores, setScores] = React.useState([]);
+
+    React.useEffect(() => {
+        const scoresText = localStorage.getItem('scores');
+        if (scoresText) {
+            const parsedScores = JSON.parse(scoresText);
+            parsedScores.sort((a, b) => a.score - b.score);
+            setScores(parsedScores);
+        }
+    }, [])
+
+    let scoreRows = [];
+
+    if (scores.length > 0) {
+        for (let i = 0; i < scores.length; i++) {
+        const score = scores[i];
+        scoreRows.push(
+            <tr key={i}>
+            <td>{i + 1}</td>
+            <td>{score.name}</td>
+            <td>{score.score}</td>
+            </tr>
+        );
+        }
+    } else {
+        scoreRows.push(
+        <tr key="0">
+            <td colSpan="3">Be the first to score!</td>
+        </tr>
+        );
+    }
+
+
   return (
     <main className="container my-5 text-center">
         <h2 className="mb-4 text-warning">Today's Leaderboard</h2>
@@ -16,21 +49,7 @@ export function Scores() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>1</th>
-                        <th>Little Caesar</th>
-                        <th>3</th>
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <th>Domino</th>
-                        <th>5</th>
-                    </tr>
-                    <tr>
-                        <th>3</th>
-                        <th>Papa John</th>
-                        <th>27</th>
-                    </tr>
+                    {scoreRows}
                 </tbody>
             </table>
         </div>

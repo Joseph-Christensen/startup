@@ -1,15 +1,7 @@
 import React from 'react';
 import "./about.css";
 
-export function About(props) {
-  const [quote, setQuote] = React.useState('Loading...');
-  const [quoteAuthor, setQuoteAuthor] = React.useState('unknown');
-
-  React.useEffect(() => {
-    setQuote('We are what we think. All that we are arises with our thoughts. With our thoughts, we make the world.');
-    setQuoteAuthor('Buddha');
-  }, []);
-
+export function About() {
   return (
     <main>
       <section className="text-center mb-5">
@@ -87,9 +79,10 @@ export function About(props) {
       <section className="mb-0">
         <h2 className="text-warning">Inspirational Quote of the Day</h2>
         <blockquote className="inspo-quote">
-          {quote}
+          "We are what we think. All that we are arises with our thoughts.  
+          With our thoughts, we make the world."
           <br/>
-          <span className="author">— {quoteAuthor}</span>
+          <span className="author">— Buddha</span>
         </blockquote>
       </section>
     </main>
