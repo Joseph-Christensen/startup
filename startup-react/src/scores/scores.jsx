@@ -4,7 +4,7 @@ import "./scores.css";
 export function Scores() {
     const [scores, setScores] = React.useState([]);
     const [userRank, setUserRank] = React.useState(null);
-    const [pencentile, setPercentile] = React.useState(null);
+    const [percentile, setPercentile] = React.useState(null);
 
     React.useEffect(() => {
 
