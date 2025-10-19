@@ -7,6 +7,31 @@ export function Scores() {
     const [pencentile, setPercentile] = React.useState(null);
 
     React.useEffect(() => {
+
+        const getMountainDate = () => {
+            const now = new Date();
+            const mountainString = now.toLocaleString("en-US", { timeZone: "America/Denver" });
+            const mountainDate = new Date(mountainString);
+            
+            console.log("[Time Check] Local time:", now.toString());
+            console.log("[Time Check] Mountain time:", mountainDate.toString());
+            
+            return mountainDate.toISOString().slice(0, 10);
+        };
+
+        const today = getMountainDate();
+        const lastDate = localStorage.getItem("scoresDate");
+        
+        console.log("[Scores Reset Check] Today:", today);
+        console.log("[Scores Reset Check] Last Date:", lastDate);
+
+        if (lastDate !== today) {
+            localStorage.removeItem("scores");
+            localStorage.setItem("scoresDate", today);
+        } else {
+            console.log("[Scores Reset] Same day, keeping scores.");
+        }
+
         const scoresText = localStorage.getItem('scores');
         if (scoresText) {
 
