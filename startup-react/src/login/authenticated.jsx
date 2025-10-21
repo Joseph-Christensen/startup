@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthState } from './authState';
 import './login.css';
 
 export function Authenticated({ username, onLogout }) {
@@ -7,7 +8,7 @@ export function Authenticated({ username, onLogout }) {
 
   function logoutUser() {
     localStorage.removeItem('username'); 
-    onLogout();                           
+    onLogout('', AuthState.Unauthenticated);                        
     navigate('/');                      
   }
 
@@ -15,7 +16,6 @@ export function Authenticated({ username, onLogout }) {
     <main className="container d-flex flex-column justify-content-center align-items-center flex-grow-1">
       <div className="text-center mb-4">
         <h2 className="text-warning">Welcome {username}!</h2>
-        <p className="lead text-white">Choose what you'd like to do:</p>
       </div>
 
       <div className="d-flex flex-column gap-3 w-100" style={{ maxWidth: '300px' }}>

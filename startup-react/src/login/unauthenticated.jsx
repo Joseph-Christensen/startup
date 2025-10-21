@@ -16,12 +16,12 @@ export function Unauthenticated({onLogin}) {
     const users = JSON.parse(localStorage.getItem('users')) || {};
 
     if (!users[username]) {
-      setMessage('Username not found.');
+      setMessage('Invalid login credentials.');
       return;
     }
 
     if (users[username] !== password) {
-      setMessage('Incorrect password.');
+      setMessage('Invalid login credentials.');
       return;
     }
 

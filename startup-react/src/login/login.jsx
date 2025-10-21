@@ -7,10 +7,13 @@ export function Login({ username, authState, onAuthChange }) {
   return (
     <main className="container-fluid text-center">
       {authState === AuthState.Authenticated && (
-        <Authenticated username={username} />
+        <Authenticated 
+          username={username}
+          onLogout={onAuthChange}
+         />
       )}
       {authState === AuthState.Unauthenticated && (
-        <Unauthenticated onLogin={(username) => onAuthChange(username, AuthState.Authenticated)} />
+        <Unauthenticated onLogin={(newUsername) => onAuthChange(newUsername, AuthState.Authenticated)} />
       )}
     </main>
   );

@@ -48,9 +48,9 @@ export default function App() {
               <Login
                 username={username}
                 authState={authState}
-                onAuthChange={(username, newState) => {
-                  setAuthState(newState);
-                  setUsername(username);
+                onAuthChange={(newUsername, newAuthState) => {
+                  setUsername(newUsername);
+                  setAuthState(newAuthState);
                 }}
               />
             }
