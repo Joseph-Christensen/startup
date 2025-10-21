@@ -11,8 +11,25 @@ import { AuthState } from './login/authState';
 
 export default function App() {
   const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
-  const currentAuthState = username ? AuthState.Authenticated : AuthState.Unauthenticated;
-  const [authState, setAuthState] = React.useState(currentAuthState);
+  const [authState, setAuthState] = React.useState(
+    username ? AuthState.Authenticated : AuthState.Unauthenticated
+  );
+
+  React.useEffect(() => {
+    const handleStorageChange = () => {
+      const storedUser = localStorage.getItem('username');
+      if (storedUser) {
+        setUsername(storedUser);
+        setAuthState(AuthState.Authenticated);
+      } else {
+        setUsername('');
+        setAuthState(AuthState.Unauthenticated);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   return (
     <BrowserRouter>
