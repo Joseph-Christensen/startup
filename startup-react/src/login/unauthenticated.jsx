@@ -25,7 +25,7 @@ export function Unauthenticated({onLogin}) {
       return;
     }
 
-    localStorage.setItem('userName', username);
+    localStorage.setItem('username', username);
     localStorage.setItem('password', password);
     onLogin(username);
   }
@@ -46,7 +46,7 @@ export function Unauthenticated({onLogin}) {
     users[username] = password;
     localStorage.setItem('users', JSON.stringify(users));
 
-    localStorage.setItem('userName', username);
+    localStorage.setItem('username', username);
     localStorage.setItem('password', password);
     onLogin(username);
   }
