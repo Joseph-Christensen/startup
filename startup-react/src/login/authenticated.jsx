@@ -1,27 +1,31 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import './login.css';
 
-import Button from 'react-bootstrap/Button';
-
-import './authenticated.css';
-
-export function Authenticated(props) {
+export function Authenticated({ username, onLogout }) {
   const navigate = useNavigate();
 
-  function logout() {
-    localStorage.removeItem('userName');
-    props.onLogout();
+  function logoutUser() {
+    localStorage.removeItem('username'); 
+    onLogout();                           
+    navigate('/');                      
   }
 
   return (
-    <div>
-      <div className='playerName'>{props.userName}</div>
-      <Button variant='primary' onClick={() => navigate('/play')}>
-        Play
-      </Button>
-      <Button variant='secondary' onClick={() => logout()}>
-        Logout
-      </Button>
-    </div>
+    <main className="container d-flex flex-column justify-content-center align-items-center flex-grow-1">
+      <div className="text-center mb-4">
+        <h2 className="text-warning">Welcome {username}!</h2>
+        <p className="lead text-white">Choose what you'd like to do:</p>
+      </div>
+
+      <div className="d-flex flex-column gap-3 w-100" style={{ maxWidth: '300px' }}>
+        <button className="btn btn-outline-warning fw-bold" onClick={() => navigate('/play')}>
+          Play
+        </button>
+        <button className="btn btn-outline-danger fw-bold" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
+    </main>
   );
 }
