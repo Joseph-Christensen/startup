@@ -22,7 +22,7 @@ export function Authenticated({ username, onLogout }) {
         <button className="btn btn-outline-warning fw-bold" onClick={() => navigate('/play')}>
           Play
         </button>
-        <button className="btn btn-outline-danger fw-bold" onClick={handleLogout}>
+        <button className="btn btn-outline-danger fw-bold" onClick={logoutUser}>
           Logout
         </button>
       </div>

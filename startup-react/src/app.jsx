@@ -1,46 +1,79 @@
 import React from 'react';
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Game } from './game/game';
 import { Scores } from './scores/scores';
 import { About } from './about/about';
+import { AuthState } from './login/authState';
 
 export default function App() {
+  const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
+  const currentAuthState = username ? AuthState.Authenticated : AuthState.Unauthenticated;
+  const [authState, setAuthState] = React.useState(currentAuthState);
+
   return (
     <BrowserRouter>
       <div className="body">
-          <header>
-              <img id = "logo" src="diverdle.png" alt="DIVERDLE" width = "325"/>
-              <nav>
-                  <ul className = "nav justify-content-center">
-                      <li className = "nav-item"><NavLink className="nav-link text-warning" to="">Login</NavLink></li>
-                      <li className = "nav-item"><NavLink className="nav-link text-warning" to="play">Play</NavLink></li>
-                      <li className = "nav-item"><NavLink className="nav-link text-warning" to="scores">Scores</NavLink></li>
-                      <li className = "nav-item"><NavLink className="nav-link text-warning" to="info">Info</NavLink></li>
-                  </ul>
-              </nav>
-          </header>
+        <header>
+          <img id="logo" src="diverdle.png" alt="DIVERDLE" width="325" />
+          <nav>
+            <ul className="nav justify-content-center">
+              <li className="nav-item">
+                <NavLink className="nav-link text-warning" to="/">Login</NavLink>
+              </li>
+              {authState === AuthState.Authenticated && (
+                <>
+                  <li className="nav-item">
+                    <NavLink className="nav-link text-warning" to="/play">Play</NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link text-warning" to="/scores">Scores</NavLink>
+                  </li>
+                </>
+              )}
+              <li className="nav-item">
+                <NavLink className="nav-link text-warning" to="/info">Info</NavLink>
+              </li>
+            </ul>
+          </nav>
+        </header>
 
-          <Routes>
-            <Route path='/' element={<Login />} exact />
-            <Route path='/play' element={<Game />} />
-            <Route path='/scores' element={<Scores />} />
-            <Route path='/info' element={<About />} />
-            <Route path='*' element={<NotFound />} />
-          </Routes>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Login
+                username={username}
+                authState={authState}
+                onAuthChange={(username, newState) => {
+                  setAuthState(newState);
+                  setUsername(username);
+                }}
+              />
+            }
+          />
+          <Route path="/play" element={<Game username={username} />} />
+          <Route path="/scores" element={<Scores username={username} />} />
+          <Route path="/info" element={<About />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
 
-          <footer>
+        <footer>
           <span>Joseph Christensen</span>
-          <a id = "github" href="https://github.com/Joseph-Christensen/startup" target = "_blank">GitHub</a>
-          </footer>
+          <a id="github" href="https://github.com/Joseph-Christensen/startup" target="_blank" rel="noreferrer">GitHub</a>
+        </footer>
       </div>
     </BrowserRouter>
   );
 }
 
 function NotFound() {
-  return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
+  return (
+    <main className="container-fluid bg-secondary text-center">
+      404: Return to sender. Address unknown.
+    </main>
+  );
 }

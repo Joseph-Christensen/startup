@@ -1,6 +1,6 @@
 import React from 'react';
 
-import 'login/login.css';
+import './login.css';
 
 export function Unauthenticated({onLogin}) {
   const [username, setUsername] = React.useState('');
@@ -86,10 +86,10 @@ export function Unauthenticated({onLogin}) {
         </div>
 
         <div className="d-flex justify-content-center gap-2">
-          <button type="button" onClick={handleLogin} className="btn btn-outline-warning fw-bold">
+          <button type="button" onClick={loginUser} className="btn btn-outline-warning fw-bold">
             Login
           </button>
-          <button type="button" onClick={handleCreate} className="btn btn-outline-warning fw-bold">
+          <button type="button" onClick={createUser} className="btn btn-outline-warning fw-bold">
             Create
           </button>
         </div>
