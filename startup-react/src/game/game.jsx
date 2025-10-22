@@ -4,7 +4,7 @@ import { getWeapon, getDailyWeapon, compareWeapons } from './weaponUtils';
 
 export function Game() {
     const correct = getDailyWeapon();
-    const guess = getWeaponByName("Liberator");
+    const guess = getWeapon("Stim Pistol");
 
     console.log("Weapon of the Day:", correct.name);
     console.log("Feedback:", compareWeapons(guess, correct));

@@ -43,3 +43,8 @@
     font-size: 1.5em;
     font-weight: bold;
 }
+
+.list-group-item:hover {
+  background-color: #f6be00 !important;
+  color: #000 !important;
+}
