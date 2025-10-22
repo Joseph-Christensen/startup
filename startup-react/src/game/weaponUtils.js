@@ -7,9 +7,14 @@ export function getWeapon(name) {
 }
 
 export function getDailyWeapon() {
-    const today = new Date().toISOString().slice(0, 10);
-    let seed = 0;
 
+    const now = new Date();
+    const mountainString = now.toLocaleString('en-US', {timeZone: 'America/Denver'});
+    const mountainDate = new Date(mountainString);
+
+    const today = mountainDate.toISOString().slice(0, 10);
+    
+    let seed = 0;
     for (let i = 0; i < today.length; i++) {
         seed += today.charCodeAt(i);
     }
