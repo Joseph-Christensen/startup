@@ -44,4 +44,44 @@ export function AutoComplete({ onSubmit }) {
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
     }, []);
+
+    return (
+        <form
+            onSubmit={handleSubmit}
+            className="d-flex justify-content-center mt-3 position-relative autocomplete-container"
+        >
+        <input
+            type="text"
+            className="form-control w-50"
+            placeholder="Enter your weapon guess"
+            value={input}
+            onChange={handleChange}
+            autoComplete="off"
+        />
+        <button
+            type="submit"
+            className="btn btn-outline-warning ms-2 fw-bold"
+        >
+            Submit
+        </button>
+
+        {suggestions.length > 0 && (
+            <ul
+                className="list-group position-absolute w-50 mt-5 bg-dark border border-warning rounded-2"
+                style={{ zIndex: 10 }}
+            >
+                {suggestions.map((s, i) => (
+                    <li
+                        key={i}
+                        onClick={() => handleSelect(s)}
+                        className="list-group-item list-group-item-action bg-dark text-light"
+                        style={{ cursor: "pointer" }}
+                    >
+                        {s}
+                    </li>
+                ))}
+            </ul>
+            )}
+        </form>
+    );
 }
