@@ -76,18 +76,18 @@ export function compareWeapons(guess, correct) {
     if (guess.damage === correct.damage) {
         result.damage = 'correct';
     } else if (guess.damage > correct.damage) {
-        result.damage = 'higher';
+        result.damage = 'incorrect lower';
     } else {
-        result.damage = 'lower';
+        result.damage = 'incorrect higher';
     }
 
     // Armor Pen
     if (guess.armorPenValue === correct.armorPenValue) {
         result.armorPen = 'correct';
     } else if (guess.armorPenValue > correct.armorPenValue) {
-        result.armorPen = 'higher';
+        result.armorPen = 'incorrect lower';
     } else {
-        result.armorPen = 'lower';
+        result.armorPen = 'incorrect higher';
     }
 
     // Traits
