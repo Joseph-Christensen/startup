@@ -32,7 +32,7 @@ export function Scores() {
             console.log("[Scores Reset] Same day, keeping scores.");
         }
 
-        const scoresText = localStorage.getItem('scores');
+        const scoresText = localStorage.getItem("scores") || "[]";
         if (scoresText) {
 
             const parsedScores = JSON.parse(scoresText);
