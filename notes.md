@@ -141,3 +141,5 @@ Handling the toggling of the checkboxes was particularly interesting.
 ```
 
 React 2 will be a huge project, I need to get started now. For my website I will copy the login code but adjust to be my own, probably also copy the scores code and the about code. The main part that is concerning is the game part of it.
+
+React 2 was very frusturating, I still have some things to fix but this is ready for the deliverable. There is a lot to be keeping track of, and every time I add new functionality something else breaks.
