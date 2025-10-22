@@ -15,9 +15,9 @@ export function AutoComplete({ onSubmit }) {
             setSuggestions([]);
         } else {
             const filtered = weapons
-            .map((w) => w.name)
-            .filter((name) => name.toLowerCase().includes(value.toLowerCase()))
-            setSuggestions(FileSystemDirectoryReader.slice(0, 6));
+                .map((w) => w.name)
+                .filter((name) => name.toLowerCase().includes(value.toLowerCase()));
+            setSuggestions(filtered.slice(0, 4));
         }
     }
 
