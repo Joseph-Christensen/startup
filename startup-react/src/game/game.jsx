@@ -13,15 +13,36 @@ export function Game() {
 
     // Set up the daily weapon at mount
     React.useEffect(() => {
-        const dailyWeapon = getDailyWeapon();
-        setCorrectWeapon(dailyWeapon);
-
-        // Save today's date in Mountain time for reset detection
+        // Get today's date in Mountain time
         const now = new Date();
         const mountainString = now.toLocaleString("en-US", { timeZone: "America/Denver" });
         const mountainDate = new Date(mountainString).toISOString().slice(0, 10);
-        localStorage.setItem("weaponDate", mountainDate);
 
+        const savedDate = localStorage.getItem("weaponDate");
+        const username = localStorage.getItem("username") || "Anonymous";
+
+        // ✅ Only reset when the date actually changes
+        if (!savedDate || savedDate !== mountainDate) {
+            // Keep username and scores intact
+            const savedUsername = localStorage.getItem("username");
+            const savedScores = localStorage.getItem("scores");
+
+            // Clear everything else (old guesses, game state, etc.)
+            localStorage.clear();
+
+            // Restore persistent data
+            if (savedUsername) localStorage.setItem("username", savedUsername);
+            if (savedScores) localStorage.setItem("scores", savedScores);
+
+            // Set new weapon date for today
+            localStorage.setItem("weaponDate", mountainDate);
+        }
+
+        // ✅ Always get daily weapon AFTER verifying date
+        const dailyWeapon = getDailyWeapon();
+        setCorrectWeapon(dailyWeapon);
+
+        // Load saved game state for this user
         const savedData = localStorage.getItem(`gameState_${username}`);
         if (savedData) {
             const parsed = JSON.parse(savedData);
@@ -30,17 +51,25 @@ export function Game() {
             setHasWon(parsed.hasWon || false);
         }
 
-        // Auto-reset the game when midnight Mountain Time hits
+        // ✅ Midnight rollover check
         const checkForMidnight = setInterval(() => {
-        const current = new Date();
-        const currentMountain = new Date(current.toLocaleString("en-US", { timeZone: "America/Denver" }));
-        const currentDate = currentMountain.toISOString().slice(0, 10);
-        const savedDate = localStorage.getItem("weaponDate");
+            const current = new Date();
+            const currentMountain = new Date(current.toLocaleString("en-US", { timeZone: "America/Denver" }));
+            const currentDate = currentMountain.toISOString().slice(0, 10);
+            const storedDate = localStorage.getItem("weaponDate");
 
-        if (savedDate && savedDate !== currentDate) {
-            localStorage.clear();
-            window.location.reload();
-        }
+            if (storedDate && storedDate !== currentDate) {
+                // Same preservation logic as above
+                const savedUsername = localStorage.getItem("username");
+                const savedScores = localStorage.getItem("scores");
+
+                localStorage.clear();
+
+                if (savedUsername) localStorage.setItem("username", savedUsername);
+                if (savedScores) localStorage.setItem("scores", savedScores);
+
+                window.location.reload();
+            }
         }, 60000);
 
         return () => clearInterval(checkForMidnight);
