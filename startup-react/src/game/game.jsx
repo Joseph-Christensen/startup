@@ -15,8 +15,11 @@ export function Game() {
     React.useEffect(() => {
         // Get today's date in Mountain time
         const now = new Date();
-        const mountainString = now.toLocaleString("en-US", { timeZone: "America/Denver" });
-        const mountainDate = new Date(mountainString).toISOString().slice(0, 10);
+        const mountainNow = new Date(now.toLocaleString("en-US", { timeZone: "America/Denver" }));
+        const year = mountainNow.getFullYear();
+        const month = String(mountainNow.getMonth() + 1).padStart(2, "0");
+        const day = String(mountainNow.getDate()).padStart(2, "0");
+        const mountainDate = `${year}-${month}-${day}`;
 
         const savedDate = localStorage.getItem("weaponDate");
         const username = localStorage.getItem("username") || "Anonymous";
