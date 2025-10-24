@@ -6,21 +6,45 @@ export function getWeapon(name) {
     );
 }
 
+function xmur3(str) {
+  let h = 1779033703 ^ str.length;
+  for (let i = 0; i < str.length; i++) {
+    h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
+  }
+  return function() {
+    h = Math.imul(h ^ (h >>> 16), 2246822507);
+    h = Math.imul(h ^ (h >>> 13), 3266489909);
+    return (h ^= h >>> 16) >>> 0;
+  };
+}
+
+function mulberry32(a) {
+  return function() {
+    a |= 0;
+    a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
 export function getDailyWeapon() {
+  // Always use Mountain Time for the date, ignoring user clock
+  const nowUtc = new Date();
+  const mountainString = nowUtc.toLocaleString("en-US", {
+    timeZone: "America/Denver",
+  });
+  const mountainDate = new Date(mountainString);
 
-    const now = new Date();
-    const mountainString = now.toLocaleString('en-US', {timeZone: 'America/Denver'});
-    const mountainDate = new Date(mountainString);
+  // Only the date part (YYYY-MM-DD) matters
+  const today = mountainDate.toISOString().slice(0, 10);
 
-    const today = mountainDate.toISOString().slice(0, 10);
-    
-    let seed = 0;
-    for (let i = 0; i < today.length; i++) {
-        seed += today.charCodeAt(i);
-    }
+  // Deterministic pseudo-random seed from date
+  const seedFn = xmur3(today);
+  const rand = mulberry32(seedFn());
 
-    const index = seed % weapons.length;
-    return weapons[index];
+  const index = Math.floor(rand() * weapons.length);
+  return weapons[index];
 }
 
 function shareTraits(guess, correct) {
