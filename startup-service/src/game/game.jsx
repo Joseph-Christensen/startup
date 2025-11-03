@@ -3,46 +3,18 @@ import "./game.css";
 import { AutoComplete } from "./autoComplete";
 import { getWeapon, getDailyWeapon, compareWeapons } from "./weaponUtils";
 
-export function Game() {
+export function Game({username}) {
     const [guesses, setGuesses] = React.useState([]);
     const [correctWeapon, setCorrectWeapon] = React.useState(null);
     const [message, setMessage] = React.useState('');
     const [hasWon, setHasWon] = React.useState(false);
 
-    const username = localStorage.getItem("username") || "Anonymous";
-
     // Set up the daily weapon at mount
     React.useEffect(() => {
-        // Get today's date in Mountain time
-        const now = new Date();
-        const mountainString = now.toLocaleString("en-US", { timeZone: "America/Denver" });
-        const mountainDate = new Date(mountainString).toISOString().slice(0, 10);
-
-        const savedDate = localStorage.getItem("weaponDate");
-        const username = localStorage.getItem("username") || "Anonymous";
-
-        // ✅ Only reset when the date actually changes
-        if (!savedDate || savedDate !== mountainDate) {
-            // Keep username and scores intact
-            const savedUsername = localStorage.getItem("username");
-            const savedScores = localStorage.getItem("scores");
-
-            // Clear everything else (old guesses, game state, etc.)
-            localStorage.clear();
-
-            // Restore persistent data
-            if (savedUsername) localStorage.setItem("username", savedUsername);
-            if (savedScores) localStorage.setItem("scores", savedScores);
-
-            // Set new weapon date for today
-            localStorage.setItem("weaponDate", mountainDate);
-        }
-
-        // ✅ Always get daily weapon AFTER verifying date
         const dailyWeapon = getDailyWeapon();
         setCorrectWeapon(dailyWeapon);
 
-        // Load saved game state for this user
+        // Restore any saved local guesses for this user
         const savedData = localStorage.getItem(`gameState_${username}`);
         if (savedData) {
             const parsed = JSON.parse(savedData);
@@ -50,39 +22,12 @@ export function Game() {
             setMessage(parsed.message || '');
             setHasWon(parsed.hasWon || false);
         }
-
-        // ✅ Midnight rollover check
-        const checkForMidnight = setInterval(() => {
-            const current = new Date();
-            const currentMountain = new Date(current.toLocaleString("en-US", { timeZone: "America/Denver" }));
-            const currentDate = currentMountain.toISOString().slice(0, 10);
-            const storedDate = localStorage.getItem("weaponDate");
-
-            if (storedDate && storedDate !== currentDate) {
-                // Same preservation logic as above
-                const savedUsername = localStorage.getItem("username");
-                const savedScores = localStorage.getItem("scores");
-
-                localStorage.clear();
-
-                if (savedUsername) localStorage.setItem("username", savedUsername);
-                if (savedScores) localStorage.setItem("scores", savedScores);
-
-                window.location.reload();
-            }
-        }, 60000);
-
-        return () => clearInterval(checkForMidnight);
-    }, []);
+    }, [username]);
 
     React.useEffect(() => {
-        const gameState = {
-            guesses,
-            message,
-            hasWon,
-        };
+        const gameState = { guesses, message, hasWon };
         localStorage.setItem(`gameState_${username}`, JSON.stringify(gameState));
-    }, [guesses, message, hasWon]);
+    }, [guesses, message, hasWon, username]);
 
     // Handle a new guess
     function handleGuessSubmit(weaponName) {
@@ -109,28 +54,28 @@ export function Game() {
 
         if (allCorrect) {
             setHasWon(true);
-            saveScoreToLocalStorage(guesses.length + 1);
+            saveScore(guesses.length + 1);
         }
     }
 
     
   
 
-    function saveScoreToLocalStorage(score) {
-        const username = localStorage.getItem("username") || "Anonymous";
-        const date = localStorage.getItem("weaponDate");
+    async function saveScore(score) {
+        try {
+        const response = await fetch('/api/score', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ name: username, score }),
+        });
 
-        const scoresText = localStorage.getItem("scores");
-        let scores = scoresText ? JSON.parse(scoresText) : [];
-
-        // If this user already scored today, do nothing
-        const alreadyPlayed = scores.find((s) => s.name === username);
-        if (alreadyPlayed) return;
-
-        // Add new entry
-        scores.push({ name: username, score });
-        localStorage.setItem("scores", JSON.stringify(scores));
-        localStorage.setItem("scoresDate", date);
+        if (!response.ok) {
+            console.error('Failed to save score');
+        }
+        } catch (err) {
+        console.error('Error saving score:', err);
+        }
     }
 
   // Render table rows dynamically
