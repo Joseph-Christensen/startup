@@ -6,7 +6,17 @@ import './login.css';
 export function Authenticated({ username, onLogout }) {
   const navigate = useNavigate();
 
-  function logoutUser() {
+  async function logoutUser() {
+
+    try {
+      await fetch('/api/auth/logout', {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+    } catch (err) {
+      console.warn('Logout request failed:', err);
+    }
+
     localStorage.removeItem('username'); 
     onLogout('', AuthState.Unauthenticated);                        
     navigate('/');                      
