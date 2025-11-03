@@ -33,3 +33,24 @@ blockquote {
     font-style: normal;
     text-align: right;
 }
+
+main .list-group-item:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+.list-group-item.text-light:hover {
+  color: #f8f9fa !important; /* Bootstrap 'text-light' color */
+}
+
+.list-group-item.text-warning:hover {
+  color: #ffc107 !important; /* Bootstrap 'text-warning' color */
+}
+
+.list-group-item.text-success:hover {
+  color: #198754 !important; /* Bootstrap 'text-success' color */
+}
+
+.list-group-item.text-danger:hover {
+  color: #dc3545 !important; /* Bootstrap 'text-danger' color */
+}
