@@ -98,6 +98,27 @@ apiRouter.delete('/scores', verifyAuth, (_req, res) => {
   res.status(204).end();
 });
 
+function scheduleDailyReset() {
+  const now = new Date();
+  const mtNow = new Date(now.toLocaleString("en-US", { timeZone: "America/Denver" }));
+
+  const nextMidnight = new Date(mtNow);
+  nextMidnight.setDate(mtNow.getDate() + 1);
+  nextMidnight.setHours(0, 0, 0, 0);
+
+  const msUntilMidnight = nextMidnight - mtNow;
+
+  console.log(`[Scheduler] Next automatic score reset in ${Math.round(msUntilMidnight / 1000 / 60)} minutes.`);
+
+  setTimeout(() => {
+    scores = [];
+    console.log(`[Scheduler] Scores automatically reset for a new day (${nextMidnight.toISOString().slice(0, 10)})`);
+    scheduleDailyReset(); // Reschedule for the next day
+  }, msUntilMidnight);
+}
+
+scheduleDailyReset();
+
 // Default error handler
 app.use(function (err, req, res, next) {
   res.status(500).send({ type: err.name, message: err.message });
