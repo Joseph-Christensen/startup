@@ -7,48 +7,59 @@ export function Unauthenticated({onLogin}) {
   const [password, setPassword] = React.useState('');
   const [message, setMessage] = React.useState('');
 
-  function loginUser() {
+  async function loginUser() {
     if (!username || !password) {
       setMessage('Please enter both username and password.')
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem('users')) || {};
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ username, password }),
+      });
 
-    if (!users[username]) {
-      setMessage('Invalid login credentials.');
-      return;
+      if (response.ok) {
+        localStorage.setItem('username', username);
+        onLogin(username);
+      } else {
+        setMessage('Invalid login credentials.');
+      }
+    } catch (err) {
+      console.error('Login failed:', err);
+      setMessage('Error connecting to server.');
     }
-
-    if (users[username] !== password) {
-      setMessage('Invalid login credentials.');
-      return;
-    }
-
-    localStorage.setItem('username', username);
-    localStorage.setItem('password', password);
-    onLogin(username);
   }
+  
 
-  function createUser() {
+  async function createUser() {
     if (!username || !password) {
       setMessage('Please enter both username and password.');
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem('users')) || {};
+    try {
+      const response = await fetch('/api/auth/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ username, password }),
+      });
 
-    if (users[username]) {
-      setMessage('That username is already taken.');
-      return;
+      if (response.ok) {
+        localStorage.setItem('username', username);
+        onLogin(username);
+      } else if (response.status === 409) {
+        setMessage('That username is already taken.');
+      } else {
+        setMessage('Error creating account.');
+      }
+    } catch (err) {
+      console.error('Error creating user:', err);
+      setMessage('Error connecting to server.');
     }
-
-    users[username] = password;
-    localStorage.setItem('users', JSON.stringify(users));
-
-    localStorage.setItem('username', username);
-    localStorage.setItem('password', password);
-    onLogin(username);
   }
 
   return (

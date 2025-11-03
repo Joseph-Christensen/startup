@@ -52,9 +52,9 @@ apiRouter.post('/auth/login', async (req, res) => {
     user.token = uuid.v4();
     setAuthCookie(res, user.token);
     res.send({ username: user.username });
-  } else {
-    res.status(401).send({ msg: 'Unauthorized' });
-  }
+    return;
+  } 
+  res.status(401).send({ msg: 'Unauthorized' });
 });
 
 // DeleteAuth logout a user
