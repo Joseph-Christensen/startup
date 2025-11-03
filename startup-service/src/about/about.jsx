@@ -26,7 +26,7 @@ export function About(props) {
           your arsenal knowledge to the test!
         </p>
       </section>
-      <section className="mb-5">
+      <section className="mb-5 how-to-play-section">
         <h2 className="text-warning">How To Play</h2>
         <ul className="list-group list-group-flush bg-transparent">
           <li className="list-group-item bg-transparent text-light">

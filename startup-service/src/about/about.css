@@ -34,23 +34,21 @@ blockquote {
     text-align: right;
 }
 
-main .list-group-item:hover {
+.how-to-play-section .list-group-item:hover {
   background-color: transparent !important;
   color: inherit !important;
 }
 
-.list-group-item.text-light:hover {
-  color: #f8f9fa !important; /* Bootstrap 'text-light' color */
+/* Preserve each color type */
+.how-to-play-section .list-group-item.text-light:hover {
+  color: #f8f9fa !important;
 }
-
-.list-group-item.text-warning:hover {
-  color: #ffc107 !important; /* Bootstrap 'text-warning' color */
+.how-to-play-section .list-group-item.text-success:hover {
+  color: #198754 !important;
 }
-
-.list-group-item.text-success:hover {
-  color: #198754 !important; /* Bootstrap 'text-success' color */
+.how-to-play-section .list-group-item.text-warning:hover {
+  color: #ffc107 !important;
 }
-
-.list-group-item.text-danger:hover {
-  color: #dc3545 !important; /* Bootstrap 'text-danger' color */
+.how-to-play-section .list-group-item.text-danger:hover {
+  color: #dc3545 !important;
 }
