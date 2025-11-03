@@ -15,13 +15,13 @@ export function Scores() {
         })
         .then((fetchedScores) => {
             // Sort by fewest guesses
-            const sortedScores = fetchedScores.sort((a, b) => a.numGuesses - b.numGuesses);
+            const sortedScores = fetchedScores.sort((a, b) => a.score - b.score);
             setScores(sortedScores);
 
             // Calculate user rank & percentile if logged in
             const username = localStorage.getItem('username');
             if (username) {
-            const rank = sortedScores.findIndex(s => s.username === username) + 1;
+            const rank = sortedScores.findIndex(s => s.name === username) + 1;
             if (rank > 0) {
                 setUserRank(rank);
                 let percentileValue = 100;
