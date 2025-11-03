@@ -1,0 +1,28 @@
+main {
+  max-width: 800px;
+  margin: auto;
+}
+
+h2 {
+    font-weight: 600;
+}
+
+table th {
+    font-weight: 700;
+}
+
+table td {
+    font-size: 0.95rem;
+}
+
+#scoresHead th {
+    background-color: #000 !important;
+    color: #ffd700 !important;
+    background-image: none !important;
+    border-color: #444 !important;
+}
+
+.lead {
+  font-size: 1.1rem;
+  color: #ddd;
+}
