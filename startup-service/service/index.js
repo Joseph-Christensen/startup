@@ -9,6 +9,10 @@ const authCookieName = 'token';
 // The scores and users are saved in memory and disappear whenever the service is restarted.
 let users = [];
 let scores = [];
+let quote = {
+  text: "Loading...",
+  author: "Unknown",
+};
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -143,6 +147,33 @@ async function createUser(username, password) {
 async function findUser(field, value) {
   if (!value) return null;
   return users.find((u) => u[field] === value);
+}
+
+async function fetchQuote() {
+  try {
+    const response = await fetch(
+      'https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en'
+    );
+
+    const text = await response.text();
+    let data;
+
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      console.warn("[Quote] JSON parse issue. Raw text:", text);
+      return; // don't overwrite old quote on a bad fetch
+    }
+
+    dailyQuote = {
+      text: data.quoteText || "We are what we think. All that we are arises with our thoughts. With our thoughts, we make the world.",
+      author: data.quoteAuthor || "Buddha",
+    };
+
+    console.log(`[Quote] Updated: "${dailyQuote.text}" — ${dailyQuote.author}`);
+  } catch (err) {
+    console.error('[Quote] Fetch failed:', err);
+  }
 }
 
 // setAuthCookie in the HTTP response
