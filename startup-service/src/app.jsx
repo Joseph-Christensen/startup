@@ -9,6 +9,28 @@ import { Scores } from './scores/scores';
 import { About } from './about/about';
 import { AuthState } from './login/authState';
 
+function useDailyReset(callback) {
+  React.useEffect(() => {
+    const checkForMidnight = () => {
+      const now = new Date();
+      const mtNow = new Date(now.toLocaleString("en-US", { timeZone: "America/Denver" }));
+      const today = mtNow.toISOString().slice(0, 10);
+      const lastDate = localStorage.getItem('lastDate');
+
+      // Only trigger once per new date
+      if (lastDate !== today) {
+        localStorage.setItem('lastDate', today);
+        callback(today);
+      }
+    };
+
+    // Run on mount + every minute
+    checkForMidnight();
+    const interval = setInterval(checkForMidnight, 60 * 1000);
+    return () => clearInterval(interval);
+  }, [callback]);
+}
+
 export default function App() {
   const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
   const [authState, setAuthState] = React.useState(
