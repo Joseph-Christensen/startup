@@ -7,52 +7,33 @@ export function Scores() {
     const [percentile, setPercentile] = React.useState(null);
 
     React.useEffect(() => {
+        // Fetch scores from backend
+        fetch('/api/scores', { credentials: 'include' })
+        .then((response) => {
+            if (!response.ok) throw new Error('Failed to fetch scores');
+            return response.json();
+        })
+        .then((fetchedScores) => {
+            // Sort by fewest guesses
+            const sortedScores = fetchedScores.sort((a, b) => a.numGuesses - b.numGuesses);
+            setScores(sortedScores);
 
-        const getMountainDate = () => {
-            const now = new Date();
-            const mountainString = now.toLocaleString("en-US", { timeZone: "America/Denver" });
-            const mountainDate = new Date(mountainString);
-            
-            console.log("[Time Check] Local time:", now.toString());
-            console.log("[Time Check] Mountain time:", mountainDate.toString());
-            
-            return mountainDate.toISOString().slice(0, 10);
-        };
-
-        const today = getMountainDate();
-        const lastDate = localStorage.getItem("scoresDate");
-        
-        console.log("[Scores Reset Check] Today:", today);
-        console.log("[Scores Reset Check] Last Date:", lastDate);
-
-        if (lastDate !== today) {
-            localStorage.removeItem("scores");
-            localStorage.setItem("scoresDate", today);
-        } else {
-            console.log("[Scores Reset] Same day, keeping scores.");
-        }
-
-        const scoresText = localStorage.getItem("scores") || "[]";
-        if (scoresText) {
-
-            const parsedScores = JSON.parse(scoresText);
-            parsedScores.sort((a, b) => a.score - b.score);
-            setScores(parsedScores);
-
+            // Calculate user rank & percentile if logged in
             const username = localStorage.getItem('username');
             if (username) {
-                const rank = parsedScores.findIndex(s => s.name === username) + 1;
-                if (rank > 0) {
-                    setUserRank(rank);
-                    let percentileValue = 100;
-                    if (parsedScores.length > 1) {
-                        percentileValue = ((parsedScores.length - rank) / (parsedScores.length - 1)) * 100;
-                    }
-                    setPercentile(Math.round(percentileValue));
+            const rank = sortedScores.findIndex(s => s.username === username) + 1;
+            if (rank > 0) {
+                setUserRank(rank);
+                let percentileValue = 100;
+                if (sortedScores.length > 1) {
+                percentileValue = ((sortedScores.length - rank) / (sortedScores.length - 1)) * 100;
                 }
+                setPercentile(Math.round(percentileValue));
             }
-        }
-    }, [])
+            }
+        })
+        .catch((err) => console.error("[Scores] Error fetching scores:", err));
+    }, []);
 
     let scoreRows = [];
 
