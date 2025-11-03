@@ -75,16 +75,21 @@ const verifyAuth = async (req, res, next) => {
   }
 };
 
-// // GetScores
-// apiRouter.get('/scores', verifyAuth, (_req, res) => {
-//   res.send(scores);
-// });
+// GetScores
+apiRouter.get('/scores', verifyAuth, (_req, res) => {
+  res.send(scores);
+});
 
-// // SubmitScore
-// apiRouter.post('/score', verifyAuth, (req, res) => {
-//   scores = updateScores(req.body);
-//   res.send(scores);
-// });
+// SubmitScore
+apiRouter.post('/score', verifyAuth, (req, res) => {
+  const {name, score} = req.body;
+  if (!name || score == null) {
+    return res.status(400).send({ msg: 'Invalid score data' }); 
+  }
+
+  scores.push({name, score})
+  res.send(scores);
+});
 
 // // Default error handler
 // app.use(function (err, req, res, next) {
