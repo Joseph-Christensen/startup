@@ -98,32 +98,29 @@ apiRouter.delete('/scores', verifyAuth, (_req, res) => {
   res.status(204).end();
 });
 
-// // Default error handler
-// app.use(function (err, req, res, next) {
-//   res.status(500).send({ type: err.name, message: err.message });
-// });
+// Default error handler
+app.use(function (err, req, res, next) {
+  res.status(500).send({ type: err.name, message: err.message });
+});
 
-// // Return the application's default page if the path is unknown
-// app.use((_req, res) => {
-//   res.sendFile('index.html', { root: 'public' });
-// });
+// Return the application's default page if the path is unknown
+app.use((_req, res) => {
+  res.sendFile('index.html', { root: 'public' });
+});
 
-async function createUser(email, password) {
+async function createUser(username, password) {
   const passwordHash = await bcrypt.hash(password, 10);
-
   const user = {
-    email: email,
+    username: username,
     password: passwordHash,
     token: uuid.v4(),
   };
   users.push(user);
-
   return user;
 }
 
 async function findUser(field, value) {
   if (!value) return null;
-
   return users.find((u) => u[field] === value);
 }
 
