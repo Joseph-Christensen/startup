@@ -37,6 +37,27 @@ export default function App() {
     username ? AuthState.Authenticated : AuthState.Unauthenticated
   );
 
+  useDailyReset(async (newDate) => {
+    console.log(`Midnight reset triggered for ${newDate}`);
+
+    // Backend to clears daily scores
+    try {
+      await fetch('/api/scores', { method: 'DELETE', credentials: 'include' });
+      console.log('[Reset] Backend scores cleared');
+    } catch (err) {
+      console.error('[Reset] Could not contact server to clear scores:', err);
+    }
+
+    // Clear local game state (except username)
+    const savedUsername = localStorage.getItem('username');
+    localStorage.clear();
+    if (savedUsername) localStorage.setItem('username', savedUsername);
+    localStorage.setItem('lastDate', newDate);
+
+    // Refresh the page so new weapon + new scores show up
+    window.location.reload();
+  });
+
   React.useEffect(() => {
     const handleStorageChange = () => {
       const storedUser = localStorage.getItem('username');
