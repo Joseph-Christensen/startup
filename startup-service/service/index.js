@@ -57,25 +57,23 @@ apiRouter.post('/auth/login', async (req, res) => {
   }
 });
 
-// // DeleteAuth logout a user
-// apiRouter.delete('/auth/logout', async (req, res) => {
-//   const user = await findUser('token', req.cookies[authCookieName]);
-//   if (user) {
-//     delete user.token;
-//   }
-//   res.clearCookie(authCookieName);
-//   res.status(204).end();
-// });
+// DeleteAuth logout a user
+apiRouter.delete('/auth/logout', async (req, res) => {
+  const user = await findUser('token', req.cookies[authCookieName]);
+  if (user) delete user.token;
+  res.clearCookie(authCookieName);
+  res.status(204).end();
+});
 
-// // Middleware to verify that the user is authorized to call an endpoint
-// const verifyAuth = async (req, res, next) => {
-//   const user = await findUser('token', req.cookies[authCookieName]);
-//   if (user) {
-//     next();
-//   } else {
-//     res.status(401).send({ msg: 'Unauthorized' });
-//   }
-// };
+// Middleware to verify that the user is authorized to call an endpoint
+const verifyAuth = async (req, res, next) => {
+  const user = await findUser('token', req.cookies[authCookieName]);
+  if (user) {
+    next();
+  } else {
+    res.status(401).send({ msg: 'Unauthorized' });
+  }
+};
 
 // // GetScores
 // apiRouter.get('/scores', verifyAuth, (_req, res) => {
