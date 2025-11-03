@@ -6,8 +6,13 @@ export function About(props) {
   const [quoteAuthor, setQuoteAuthor] = React.useState('unknown');
 
   React.useEffect(() => {
-    setQuote('We are what we think. All that we are arises with our thoughts. With our thoughts, we make the world.');
-    setQuoteAuthor('Buddha');
+    fetch('/api/quote', { method: 'GET' })
+      .then((res) => res.json())
+      .then((data) => {
+        setQuote(data.text);
+        setQuoteAuthor(data.author);
+      })
+      .catch();
   }, []);
 
   return (

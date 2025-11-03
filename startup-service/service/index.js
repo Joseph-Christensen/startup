@@ -102,6 +102,17 @@ apiRouter.delete('/scores', verifyAuth, (_req, res) => {
   res.status(204).end();
 });
 
+// setQuote
+apiRouter.post('/quote', async (_req, res) => {
+  await fetchQuote();
+  res.send(dailyQuote);
+});
+
+// getQuote
+apiRouter.get('/quote', (_req, res) => {
+  res.send(dailyQuote);
+});
+
 function scheduleDailyReset() {
   const now = new Date();
   const mtNow = new Date(now.toLocaleString("en-US", { timeZone: "America/Denver" }));
@@ -121,6 +132,7 @@ function scheduleDailyReset() {
   }, msUntilMidnight);
 }
 
+fetchQuote();
 scheduleDailyReset();
 
 // Default error handler
@@ -162,7 +174,7 @@ async function fetchQuote() {
       data = JSON.parse(text);
     } catch (e) {
       console.warn("[Quote] JSON parse issue. Raw text:", text);
-      return; // don't overwrite old quote on a bad fetch
+      return;
     }
 
     dailyQuote = {
