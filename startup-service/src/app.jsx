@@ -9,54 +9,11 @@ import { Scores } from './scores/scores';
 import { About } from './about/about';
 import { AuthState } from './login/authState';
 
-function useDailyReset(callback) {
-  React.useEffect(() => {
-    const checkForMidnight = () => {
-      const now = new Date();
-      const mtNow = new Date(now.toLocaleString("en-US", { timeZone: "America/Denver" }));
-      const today = mtNow.toISOString().slice(0, 10);
-      const lastDate = localStorage.getItem('lastDate');
-
-      // Only trigger once per new date
-      if (lastDate !== today) {
-        localStorage.setItem('lastDate', today);
-        callback(today);
-      }
-    };
-
-    // Run on mount + every minute
-    checkForMidnight();
-    const interval = setInterval(checkForMidnight, 60 * 1000);
-    return () => clearInterval(interval);
-  }, [callback]);
-}
-
 export default function App() {
   const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
   const [authState, setAuthState] = React.useState(
     username ? AuthState.Authenticated : AuthState.Unauthenticated
   );
-
-  useDailyReset(async (newDate) => {
-    console.log(`Midnight reset triggered for ${newDate}`);
-
-    // Backend to clears daily scores
-    try {
-      await fetch('/api/scores', { method: 'DELETE', credentials: 'include' });
-      console.log('[Reset] Backend scores cleared');
-    } catch (err) {
-      console.error('[Reset] Could not contact server to clear scores:', err);
-    }
-
-    // Clear local game state (except username)
-    const savedUsername = localStorage.getItem('username');
-    localStorage.clear();
-    if (savedUsername) localStorage.setItem('username', savedUsername);
-    localStorage.setItem('lastDate', newDate);
-
-    // Refresh the page so new weapon + new scores show up
-    window.location.reload();
-  });
 
   React.useEffect(() => {
     const handleStorageChange = () => {

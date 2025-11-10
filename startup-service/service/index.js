@@ -127,6 +127,7 @@ function scheduleDailyReset() {
 
   setTimeout(() => {
     scores = [];
+    fetchQuote();
     console.log(`[Scheduler] Scores automatically reset for a new day (${nextMidnight.toISOString().slice(0, 10)})`);
     scheduleDailyReset(); // Reschedule for the next day
   }, msUntilMidnight);
