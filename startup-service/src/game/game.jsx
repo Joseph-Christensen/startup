@@ -1,7 +1,7 @@
 import React from "react";
 import "./game.css";
 import { AutoComplete } from "./autoComplete";
-import { getWeapon, getDailyWeapon, compareWeapons } from "./weaponUtils";
+import { getWeapon, compareWeapons } from "./weaponUtils";
 
 export function Game({username}) {
     const [guesses, setGuesses] = React.useState([]);
@@ -11,8 +11,12 @@ export function Game({username}) {
 
     // Set up the daily weapon at mount
     React.useEffect(() => {
-        const dailyWeapon = getDailyWeapon();
-        setCorrectWeapon(dailyWeapon);
+        fetch('/api/weapon', { method: 'GET' })
+            .then((res) => res.json())
+            .then((data) => {
+                setCorrectWeapon(data); 
+            })
+            .catch((err) => console.error('Failed to fetch weapon:', err));
 
         // Restore any saved local guesses for this user
         const savedData = localStorage.getItem(`gameState_${username}`);
