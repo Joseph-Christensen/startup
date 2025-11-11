@@ -94,6 +94,7 @@ const weapons = [
 ];
 
 const app = express();
+const DB = require('./database.js');
 
 const authCookieName = 'token';
 
@@ -214,7 +215,7 @@ apiRouter.get('/quote', (_req, res) => {
 });
 
 // setWeapon
-apiRouter.post('/weapon', (_req, res) => {
+apiRouter.post('/weapon', async (_req, res) => {
   setDailyWeapon();
   res.send(dailyWeapon);
 });
@@ -247,8 +248,8 @@ apiRouter.get('/gameState/:username', verifyAuth, (req, res) => {
   res.send(state);
 });
 
-apiRouter.get('/scores/alltime', verifyAuth, (req, res) => {
-  const user = users.find(u => u.token === req.cookies[authCookieName]);
+apiRouter.get('/scores/alltime', verifyAuth, async (req, res) => {
+  const user = findUser('token', req.cookies[authCookieName]);
   if (!user) return res.status(401).send({ msg: 'Unauthorized' });
 
   const userScores = allScores.filter(s => s.name === user.username);
