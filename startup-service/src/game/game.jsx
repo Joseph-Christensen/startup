@@ -8,6 +8,7 @@ export function Game({username}) {
     const [correctWeapon, setCorrectWeapon] = React.useState(null);
     const [message, setMessage] = React.useState('');
     const [hasWon, setHasWon] = React.useState(false);
+    const [loaded, setLoaded] = React.useState(false);
 
     // Set up the daily weapon at mount
     React.useEffect(() => {
@@ -19,19 +20,35 @@ export function Game({username}) {
             .catch((err) => console.error('Failed to fetch weapon:', err));
 
         // Restore any saved local guesses for this user
-        const savedData = localStorage.getItem(`gameState_${username}`);
-        if (savedData) {
-            const parsed = JSON.parse(savedData);
-            setGuesses(parsed.guesses || []);
-            setMessage(parsed.message || '');
-            setHasWon(parsed.hasWon || false);
-        }
+        fetch(`/api/gameState/${username}`, {
+            method: 'GET',
+            credentials: 'include'
+        })
+        .then((res) => {
+            if (!res.ok) throw new Error('No saved state');
+            return res.json();
+        })
+        .then((data) => {
+            setGuesses(data.guesses || []);
+            setMessage(data.message || '');
+            setHasWon(data.hasWon || false);
+        })
+        .catch(() => console.log('No saved game state found.'))
+        .finally(() => setLoaded(true));
     }, [username]);
 
     React.useEffect(() => {
+        if (!username || !loaded) return;
         const gameState = { guesses, message, hasWon };
-        localStorage.setItem(`gameState_${username}`, JSON.stringify(gameState));
-    }, [guesses, message, hasWon, username]);
+
+        fetch('/api/gameState', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ username, gameState }),
+        })
+        .catch((err) => console.error('Failed to save game state:', err));
+    }, [guesses, message, hasWon, username, loaded]);
 
     // Handle a new guess
     function handleGuessSubmit(weaponName) {
@@ -42,6 +59,8 @@ export function Game({username}) {
             setMessage("That weapon doesn't exist! Try again.");
             return;
         }
+
+        setMessage('');
 
         const comparison = compareWeapons(guessedWeapon, correctWeapon);
 
@@ -61,9 +80,6 @@ export function Game({username}) {
             saveScore(guesses.length + 1);
         }
     }
-
-    
-  
 
     async function saveScore(score) {
         try {
