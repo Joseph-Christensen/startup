@@ -100,6 +100,7 @@ const authCookieName = 'token';
 // The scores and users are saved in memory and disappear whenever the service is restarted.
 let users = [];
 let scores = [];
+let allScores = [];
 let gameStates = {};
 let dailyQuote = {
   text: "Loading...",
@@ -248,6 +249,14 @@ apiRouter.get('/gameState/:username', verifyAuth, (req, res) => {
   res.send(state);
 });
 
+apiRouter.get('/scores/alltime', verifyAuth, (req, res) => {
+  const user = users.find(u => u.token === req.cookies[authCookieName]);
+  if (!user) return res.status(401).send({ msg: 'Unauthorized' });
+
+  const userScores = allScores.filter(s => s.name === user.username);
+  res.send(userScores);
+});
+
 function scheduleDailyReset() {
   const now = new Date();
   const mtNow = new Date(now.toLocaleString("en-US", { timeZone: "America/Denver" }));
@@ -261,10 +270,13 @@ function scheduleDailyReset() {
   console.log(`[Scheduler] Next automatic reset in ${Math.round(msUntilMidnight / 1000 / 60)} minutes.`);
 
   setTimeout(() => {
+    allScores.push(...scores);
+
     scores = [];
     gameStates = {};
     fetchQuote();
     setDailyWeapon();
+
     console.log(`[Scheduler] Everthing automatically reset for a new day (${nextMidnight.toISOString().slice(0, 10)})`);
     scheduleDailyReset(); // Reschedule for the next day
   }, msUntilMidnight);

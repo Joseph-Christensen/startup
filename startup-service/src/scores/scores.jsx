@@ -3,11 +3,14 @@ import "./scores.css";
 
 export function Scores() {
     const [scores, setScores] = React.useState([]);
-    const [userRank, setUserRank] = React.useState(null);
     const [percentile, setPercentile] = React.useState(null);
+    const [allTimePercentile, setAllTimePercentile] = React.useState(null);
 
     React.useEffect(() => {
         // Fetch scores from backend
+        let scoreToday = null;
+        const username = localStorage.getItem('username');
+
         fetch('/api/scores', { cache: 'no-store' })
         .then((response) => {
             if (!response.ok) throw new Error('Failed to fetch scores');
@@ -18,21 +21,44 @@ export function Scores() {
             const sortedScores = fetchedScores.sort((a, b) => a.score - b.score);
             setScores(sortedScores);
 
-            // Calculate user rank & percentile if logged in
-            const username = localStorage.getItem('username');
+            // Calculate percentile if logged in
             if (username) {
-            const rank = sortedScores.findIndex(s => s.name === username) + 1;
-            if (rank > 0) {
-                setUserRank(rank);
-                let percentileValue = 100;
-                if (sortedScores.length > 1) {
-                percentileValue = ((sortedScores.length - rank) / (sortedScores.length - 1)) * 100;
+                const rank = sortedScores.findIndex(s => s.name === username) + 1;
+                if (rank > 0) {
+                    scoreToday = sortedScores[rank - 1];
+                    let percentileValue = 100;
+                    if (sortedScores.length > 1) {
+                    percentileValue = ((sortedScores.length - rank) / (sortedScores.length - 1)) * 100;
+                    }
+                    setPercentile(Math.round(percentileValue));
                 }
-                setPercentile(Math.round(percentileValue));
-            }
             }
         })
-        .catch((err) => console.error("[Scores] Error fetching scores:", err));
+        .catch((err) => console.error("[Scores] Error fetching scores:", err))
+        .finally(() => {
+            fetch('/api/scores/alltime', { cache: 'no-store' })
+                .then((response) => {
+                if (!response.ok) throw new Error('Failed to fetch all-time scores');
+                return response.json();
+                })
+                .then((fetchedAllTime) => {
+                // Sort by fewest guesses
+                const sortedAllTime = fetchedAllTime.sort((a, b) => a.score - b.score);
+
+                // Calculate percentile
+                if (username && scoreToday) {
+                    const allTimeRank = sortedAllTime.findIndex(s => s.score === scoreToday.score) + 1;
+                    if (allTimeRank > 0) {
+                    let allTimeValue = 100;
+                    if (sortedAllTime.length > 1) {
+                        allTimeValue = ((sortedAllTime.length - allTimeRank) / (sortedAllTime.length - 1)) * 100;
+                    }
+                    setAllTimePercentile(Math.round(allTimeValue));
+                    }
+                }
+                })
+                .catch((err) => console.error("[Scores] Error fetching all-time scores:", err));
+        });
     }, []);
 
     let scoreRows = [];
@@ -58,13 +84,24 @@ export function Scores() {
 
     let statsSection = null;
 
-    if (userRank !== null && percentile !== null) {
+    if (allTimePercentile !== null && percentile !== null) {
         statsSection = (
         <div className="mt-4">
             <p className="lead">
-            You placed <span className="text-warning">#{userRank}</span> out of{" "}
-            {scores.length} players today.
+            You scored better than{" "}
+            <span className="text-warning">{percentile}%</span> of other players
+            today.
             </p>
+            <p className="lead">
+            You scored better than{" "}
+            <span className="text-warning">{allTimePercentile}%</span> of your past scores
+            today.
+            </p>
+        </div>
+        );
+    } else if (percentile != null) {
+        statsSection = (
+        <div className="mt-4">
             <p className="lead">
             You scored better than{" "}
             <span className="text-warning">{percentile}%</span> of other players

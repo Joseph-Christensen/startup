@@ -2,15 +2,15 @@ import React from 'react';
 import "./about.css";
 
 export function About(props) {
-  const [quote, setQuote] = React.useState('Loading...');
-  const [quoteAuthor, setQuoteAuthor] = React.useState('unknown');
+  const [quote, setQuote] = React.useState('We are what we think. All that we are arises with our thoughts. With our thoughts, we make the world.');
+  const [quoteAuthor, setQuoteAuthor] = React.useState('Buddha');
 
   React.useEffect(() => {
     fetch('/api/quote', { method: 'GET' })
       .then((res) => res.json())
       .then((data) => {
-        setQuote(data.text);
-        setQuoteAuthor(data.author);
+        setQuote(data.text.trim());
+        setQuoteAuthor(data.author.trim());
       })
       .catch();
   }, []);
