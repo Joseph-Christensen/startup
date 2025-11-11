@@ -57,6 +57,16 @@ async function clearScores() {
   await scoreCollection.deleteMany({});
 }
 
+async function updateAllScores(scores) {
+  if (scores.length > 0) {
+    await allScoreCollection.insertMany(scores);
+  }
+}
+
+async function getAllScores(username) {
+  return allScoreCollection.find({ name: username }).toArray();
+}
+
 module.exports = {
     getUser,
     getUserByToken,
@@ -65,4 +75,6 @@ module.exports = {
     addScore,
     getScores,
     clearScores,
+    updateAllScores,
+    getAllScores,
 };
