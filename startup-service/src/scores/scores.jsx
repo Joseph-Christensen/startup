@@ -8,7 +8,7 @@ export function Scores() {
 
     React.useEffect(() => {
         // Fetch scores from backend
-        fetch('/api/scores', { credentials: 'include' })
+        fetch('/api/scores', { cache: 'no-store' })
         .then((response) => {
             if (!response.ok) throw new Error('Failed to fetch scores');
             return response.json();

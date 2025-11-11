@@ -262,6 +262,7 @@ function scheduleDailyReset() {
 
   setTimeout(() => {
     scores = [];
+    gameStates = {};
     fetchQuote();
     setDailyWeapon();
     console.log(`[Scheduler] Everthing automatically reset for a new day (${nextMidnight.toISOString().slice(0, 10)})`);
