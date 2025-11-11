@@ -43,7 +43,9 @@ export function Scores() {
                 })
                 .then((fetchedAllTime) => {
                 // Sort by fewest guesses
-                const sortedAllTime = fetchedAllTime.sort((a, b) => a.score - b.score);
+                const allScores = fetchedAllTime;
+                allScores.push(scoreToday);
+                const sortedAllTime = allScores.sort((a, b) => a.score - b.score);
 
                 // Calculate percentile
                 if (username && scoreToday) {
