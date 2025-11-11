@@ -135,16 +135,13 @@ app.use(`/api`, apiRouter);
 // CreateAuth a new user
 apiRouter.post('/auth/create', async (req, res) => {
   const {username, password} = req.body;
-
   if (!username || !password) {
     return res.status(400).send({ msg: 'Missing username or password' });
   }
-
   if (await findUser('username', username)) {
     res.status(409).send({ msg: 'Existing user' });
   } else {
     const user = await createUser(username, password);
-
     setAuthCookie(res, user.token);
     res.send({ username: user.username });
   }
@@ -156,6 +153,7 @@ apiRouter.post('/auth/login', async (req, res) => {
   const user = await findUser('username', username);
   if (user && await bcrypt.compare(password, user.password)) {
     user.token = uuid.v4();
+    await DB.updateUser(user);
     setAuthCookie(res, user.token);
     res.send({ username: user.username });
     return;
@@ -303,13 +301,17 @@ async function createUser(username, password) {
     password: passwordHash,
     token: uuid.v4(),
   };
-  users.push(user);
+  await DB.addUser(user);
   return user;
 }
 
 async function findUser(field, value) {
   if (!value) return null;
-  return users.find((u) => u[field] === value);
+
+  if (field === 'token') {
+    return DB.getUserByToken(value);
+  }
+  return DB.getUser(value);
 }
 
 async function fetchQuote() {
