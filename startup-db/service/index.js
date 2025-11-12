@@ -251,20 +251,21 @@ apiRouter.get('/weapon', async (_req, res) => {
 });
 
 // Save or update a user's game state
-apiRouter.post('/gameState', verifyAuth, (req, res) => {
+apiRouter.post('/gameState', verifyAuth, async (req, res) => {
   const { username, gameState } = req.body;
   if (!username || !gameState) {
     return res.status(400).send({ msg: 'Invalid game state data' });
   }
 
-  gameStates[username] = gameState;
+  await DB.saveGameState(username, gameState);
   res.status(200).send({ msg: 'Game state saved successfully' });
 });
 
 // Get a user's game state
-apiRouter.get('/gameState/:username', verifyAuth, (req, res) => {
+apiRouter.get('/gameState/:username', verifyAuth, async (req, res) => {
   const username = req.params.username;
-  const state = gameStates[username];
+  const record = await DB.getGameState(username);
+  const state = record ? record.state : undefined;
 
   if (!state) {
     return res.status(404).send({ msg: 'No saved game state found' });
