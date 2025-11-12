@@ -147,3 +147,7 @@ React 2 was very frusturating, I still have some things to fix but this is ready
 ## Service
 
 This was pretty simple, all it was in the big picture was transitioning my code from using local storage to storage in the application, I can now see scores from everyone that plays. I just added a call to anytime I was doing an endpoint action.
+
+## Database
+
+All I did for this deliverable was transition my backend from storing on the server to storing on a database. This was simple but was also much harder to debug. Overall mongoDB was super simple and easy to use.
