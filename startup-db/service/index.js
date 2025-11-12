@@ -181,18 +181,19 @@ const verifyAuth = async (req, res, next) => {
 };
 
 // GetScores
-apiRouter.get('/scores', verifyAuth, (_req, res) => {
+apiRouter.get('/scores', verifyAuth, async (_req, res) => {
+  const scores = await DB.getScores()
   res.send(scores);
 });
 
 // SubmitScore
-apiRouter.post('/score', verifyAuth, (req, res) => {
+apiRouter.post('/score', verifyAuth, async (req, res) => {
   const {name, score} = req.body;
   if (!name || score == null) {
     return res.status(400).send({ msg: 'Invalid score data' }); 
   }
-
-  scores.push({name, score})
+  DB.addScore({ name, score });
+  const scores = await DB.getScores();
   res.send(scores);
 });
 
