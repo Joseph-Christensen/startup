@@ -15,6 +15,7 @@ export function Game({username}) {
         fetch('/api/weapon', { method: 'GET' })
             .then((res) => res.json())
             .then((data) => {
+                if (!data) throw new Error("No weapon data");
                 setCorrectWeapon(data); 
             })
             .catch((err) => console.error('Failed to fetch weapon:', err));
@@ -76,8 +77,9 @@ export function Game({username}) {
         const allCorrect = Object.values(comparison).every((val) => val === "correct");
 
         if (allCorrect) {
+            const totalGuesses = guesses.length + 1;
             setHasWon(true);
-            saveScore(guesses.length + 1);
+            saveScore(totalGuesses);
         }
     }
 

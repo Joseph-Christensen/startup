@@ -12,7 +12,7 @@ export function About(props) {
         setQuote(data.text.trim());
         setQuoteAuthor(data.author.trim());
       })
-      .catch();
+      .catch(err => console.error("Failed to fetch quote: ", err));
   }, []);
 
   return (

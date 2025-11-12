@@ -36,15 +36,15 @@ export function Scores() {
         })
         .catch((err) => console.error("[Scores] Error fetching scores:", err))
         .finally(() => {
-            fetch('/api/scores/alltime', { cache: 'no-store' })
+            fetch('/api/scores/alltime', { cache: 'no-store', credentials: 'include' })
                 .then((response) => {
                 if (!response.ok) throw new Error('Failed to fetch all-time scores');
                 return response.json();
                 })
                 .then((fetchedAllTime) => {
                 // Sort by fewest guesses
-                const allScores = fetchedAllTime;
-                allScores.push(scoreToday);
+                const allScores = [...fetchedAllTime];
+                if (scoreToday) allScores.push(scoreToday);
                 const sortedAllTime = allScores.sort((a, b) => a.score - b.score);
 
                 // Calculate percentile
