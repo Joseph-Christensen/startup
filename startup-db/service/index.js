@@ -207,25 +207,46 @@ apiRouter.delete('/scores', verifyAuth, async (_req, res) => {
 // setQuote
 apiRouter.post('/quote', async (_req, res) => {
   await fetchQuote();
-  const quote = await DB.getDailyQuote();
-  res.send(quote);
+  const dailyQuote = await DB.getDailyQuote();
+
+  if (!dailyQuote) {
+    return res.status(404).send('No daily quote set');
+  }
+
+  res.send(dailyQuote);
 });
 
 // getQuote
 apiRouter.get('/quote', async (_req, res) => {
-  const quote = await DB.getDailyQuote();
-  res.send(quote);
+  const dailyQuote = await DB.getDailyQuote();
+
+  if (!dailyQuote) {
+    return res.status(404).send('No daily quote set');
+  }
+
+  res.send(dailyQuote);
 });
 
 // setWeapon
 apiRouter.post('/weapon', async (_req, res) => {
   setDailyWeapon();
+  const dailyWeapon = await DB.getDailyWeapon();
+
+  if (!dailyWeapon) {
+    return res.status(404).send('No daily weapon set');
+  }
+
   res.send(dailyWeapon);
 });
 
 // getWeapon
 apiRouter.get('/weapon', async (_req, res) => {
   const dailyWeapon = await DB.getDailyWeapon();
+
+  if (!dailyWeapon) {
+    return res.status(404).send('No daily weapon set');
+  }
+
   res.send(dailyWeapon);
 });
 
