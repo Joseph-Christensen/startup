@@ -192,14 +192,14 @@ apiRouter.post('/score', verifyAuth, async (req, res) => {
   if (!name || score == null) {
     return res.status(400).send({ msg: 'Invalid score data' }); 
   }
-  DB.addScore({ name, score });
+  await DB.addScore({ name, score });
   const scores = await DB.getScores();
   res.send(scores);
 });
 
 // clearScores
-apiRouter.delete('/scores', verifyAuth, (_req, res) => {
-  scores = [];
+apiRouter.delete('/scores', verifyAuth, async (_req, res) => {
+  await DB.clearScores();
   console.log('[Scores Reset], manually cleared');
   res.status(204).end();
 });
@@ -207,12 +207,14 @@ apiRouter.delete('/scores', verifyAuth, (_req, res) => {
 // setQuote
 apiRouter.post('/quote', async (_req, res) => {
   await fetchQuote();
-  res.send(dailyQuote);
+  const quote = await DB.getDailyQuote();
+  res.send(quote);
 });
 
 // getQuote
-apiRouter.get('/quote', (_req, res) => {
-  res.send(dailyQuote);
+apiRouter.get('/quote', async (_req, res) => {
+  const quote = await DB.getDailyQuote();
+  res.send(quote);
 });
 
 // setWeapon
@@ -222,7 +224,8 @@ apiRouter.post('/weapon', async (_req, res) => {
 });
 
 // getWeapon
-apiRouter.get('/weapon', (_req, res) => {
+apiRouter.get('/weapon', async (_req, res) => {
+  const dailyWeapon = await DB.getDailyWeapon();
   res.send(dailyWeapon);
 });
 
@@ -332,10 +335,12 @@ async function fetchQuote() {
       return;
     }
 
-    dailyQuote = {
+    const dailyQuote = {
       text: data.quoteText || "We are what we think. All that we are arises with our thoughts. With our thoughts, we make the world.",
       author: data.quoteAuthor || "Buddha",
     };
+
+    await DB.setDailyQuote(dailyQuote);
 
     console.log(`[Quote] Updated: "${dailyQuote.text}" — ${dailyQuote.author}`);
   } catch (err) {
@@ -343,9 +348,10 @@ async function fetchQuote() {
   }
 }
 
-function setDailyWeapon() {
+async function setDailyWeapon() {
   const index = Math.floor(Math.random() * weapons.length);
-  dailyWeapon = weapons[index];
+  const dailyWeapon = weapons[index];
+  await DB.setDailyWeapon(dailyWeapon);
   console.log(`[Weapon] Daily weapon set: ${dailyWeapon.name}`);
 }
 
