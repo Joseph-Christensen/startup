@@ -98,25 +98,6 @@ const DB = require('./database.js');
 
 const authCookieName = 'token';
 
-// The scores and users are saved in memory and disappear whenever the service is restarted.
-let users = [];
-let scores = [];
-let allScores = [];
-let gameStates = {};
-let dailyQuote = {
-  text: "Loading...",
-  author: "Unknown",
-};
-let dailyWeapon = { 
-  name: 'Unknown', 
-  category: 'Unknown', 
-  type: 'Unknown', 
-  damage: 0, 
-  armorPen: 'Unknown', 
-  armorPenValue: 0, 
-  traits: ['None'] 
-};
-
 // The service port. In production the front-end code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
@@ -278,7 +259,7 @@ apiRouter.get('/scores/alltime', verifyAuth, async (req, res) => {
   const user = findUser('token', req.cookies[authCookieName]);
   if (!user) return res.status(401).send({ msg: 'Unauthorized' });
 
-  const userScores = allScores.filter(s => s.name === user.username);
+  const userScores = await DB.getAllScores(user.username);
   res.send(userScores);
 });
 
@@ -294,11 +275,12 @@ function scheduleDailyReset() {
 
   console.log(`[Scheduler] Next automatic reset in ${Math.round(msUntilMidnight / 1000 / 60)} minutes.`);
 
-  setTimeout(() => {
-    allScores.push(...scores);
+  setTimeout( async () => {
+    const scores = await DB.getScores();
+    await DB.updateAllScores(scores);
+    await DB.clearScores();
+    await DB.clearGameStates();
 
-    scores = [];
-    gameStates = {};
     fetchQuote();
     setDailyWeapon();
 
