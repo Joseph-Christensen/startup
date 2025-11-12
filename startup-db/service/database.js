@@ -102,6 +102,19 @@ async function getDailyQuote() {
     return dailyQuoteCollection.findOne({});
 }
 
+// setting the dailyWeapon
+async function setDailyWeapon(weapon) {
+    await dailyWeaponCollection.updateOne(
+        {},
+        { $set: weapon },
+        { upsert: true }
+    );
+}
+
+async function getDailyWeapon() {
+    return dailyWeaponCollection.findOne({});
+}
+
 module.exports = {
     getUser,
     getUserByToken,
@@ -117,4 +130,6 @@ module.exports = {
     clearGameStates,
     setDailyQuote,
     getDailyQuote,
+    setDailyWeapon,
+    getDailyWeapon,
 };
