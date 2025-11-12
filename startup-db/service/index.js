@@ -99,7 +99,7 @@ const DB = require('./database.js');
 const authCookieName = 'token';
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
-const port = process.argv.length > 2 ? process.argv[2] : 4000;
+const PORT = process.env.PORT || 4000;
 
 // JSON body parsing using built-in middleware
 app.use(express.json());
@@ -369,6 +369,6 @@ function setAuthCookie(res, authToken) {
   });
 }
 
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
