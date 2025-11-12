@@ -57,16 +57,19 @@ async function clearScores() {
   await scoreCollection.deleteMany({});
 }
 
+// code for updating the allScores every reset
 async function updateAllScores(scores) {
   if (scores.length > 0) {
     await allScoreCollection.insertMany(scores);
   }
 }
 
+// returns allScores
 async function getAllScores(username) {
   return allScoreCollection.find({ name: username }).toArray();
 }
 
+// saves the gameState for a user
 async function saveGameState(username, state) {
   await gameStateCollection.updateOne(
     { username },
@@ -75,12 +78,28 @@ async function saveGameState(username, state) {
   );
 }
 
+// returns the gameState for a user
 async function getGameState(username) {
   return gameStateCollection.findOne({ username });
 }
 
+// clears all gameStates at reset
 async function clearGameStates() {
   await gameStateCollection.deleteMany({});
+}
+
+// setting the dailyQuote
+async function setDailyQuote(quote) {
+  await dailyQuoteCollection.updateOne(
+    {},
+    { $set: quote },
+    { upsert: true }
+  );
+}
+
+// returns dailyQuote
+async function getDailyQuote() {
+    return dailyQuoteCollection.findOne({});
 }
 
 module.exports = {
@@ -96,4 +115,6 @@ module.exports = {
     saveGameState,
     getGameState,
     clearGameStates,
+    setDailyQuote,
+    getDailyQuote,
 };
