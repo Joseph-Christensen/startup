@@ -67,6 +67,22 @@ async function getAllScores(username) {
   return allScoreCollection.find({ name: username }).toArray();
 }
 
+async function saveGameState(username, state) {
+  await gameStateCollection.updateOne(
+    { username },
+    { $set: { username, state } },
+    { upsert: true }
+  );
+}
+
+async function getGameState(username) {
+  return gameStateCollection.findOne({ username });
+}
+
+async function clearGameStates() {
+  await gameStateCollection.deleteMany({});
+}
+
 module.exports = {
     getUser,
     getUserByToken,
@@ -77,4 +93,7 @@ module.exports = {
     clearScores,
     updateAllScores,
     getAllScores,
+    saveGameState,
+    getGameState,
+    clearGameStates,
 };
