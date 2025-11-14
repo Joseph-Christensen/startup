@@ -95,9 +95,8 @@ export function Scores() {
             today.
             </p>
             <p className="lead">
-            You scored better than{" "}
-            <span className="text-warning">{allTimePercentile}%</span> of your past scores
-            today.
+            Your score today was better than{" "}
+            <span className="text-warning">{allTimePercentile}%</span> of your past scores.
             </p>
         </div>
         );
