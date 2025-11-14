@@ -11,7 +11,7 @@ export function Scores() {
         let scoreToday = null;
         const username = localStorage.getItem('username');
 
-        fetch('/api/scores', { cache: 'no-store' })
+        fetch('/api/scores', { cache: 'no-store' , credentials: 'include' })
         .then((response) => {
             if (!response.ok) throw new Error('Failed to fetch scores');
             return response.json();

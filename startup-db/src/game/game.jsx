@@ -85,7 +85,7 @@ export function Game({username}) {
 
     async function saveScore(score) {
         try {
-        const response = await fetch('/api/score', {
+        const response = await fetch('/api/scores', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

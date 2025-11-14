@@ -168,7 +168,7 @@ apiRouter.get('/scores', verifyAuth, async (_req, res) => {
 });
 
 // SubmitScore
-apiRouter.post('/score', verifyAuth, async (req, res) => {
+apiRouter.post('/scores', verifyAuth, async (req, res) => {
   const {name, score} = req.body;
   if (!name || score == null) {
     return res.status(400).send({ msg: 'Invalid score data' }); 
@@ -255,11 +255,13 @@ apiRouter.get('/gameState/:username', verifyAuth, async (req, res) => {
   res.send(state);
 });
 
+// get all time scores
 apiRouter.get('/scores/alltime', verifyAuth, async (req, res) => {
-  const user = findUser('token', req.cookies[authCookieName]);
+  const user = await findUser('token', req.cookies[authCookieName]);
   if (!user) return res.status(401).send({ msg: 'Unauthorized' });
 
   const userScores = await DB.getAllScores(user.username);
+  console.log("Fetched scores:", userScores);
   res.send(userScores);
 });
 
