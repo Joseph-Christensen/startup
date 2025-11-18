@@ -265,6 +265,24 @@ apiRouter.get('/scores/alltime', verifyAuth, async (req, res) => {
   res.send(userScores);
 });
 
+// checks if a user still has a valid token
+apiRouter.get('/session', async (req, res) => {
+  const token = req.cookies[authCookieName];
+  if (!token) {
+    return res.json({ authenticated: false });
+  } else {
+    const user = await findUser('token', token);
+    if (!user) {
+      return res.json({ authenticated: false });
+    } else {
+      return res.json({
+        authenticated: true,
+        username: user.username,
+      });
+    }
+  }
+});
+
 function scheduleDailyReset() {
   const now = new Date();
   const mtNow = new Date(now.toLocaleString("en-US", { timeZone: "America/Denver" }));

@@ -13,6 +13,11 @@ export function Unauthenticated({onLogin}) {
       return;
     }
 
+    if (username.length > 18) {
+      setMessage('Username cannot exceed 18 characters.');
+      return;
+    }
+
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
@@ -37,6 +42,11 @@ export function Unauthenticated({onLogin}) {
   async function createUser() {
     if (!username || !password) {
       setMessage('Please enter both username and password.');
+      return;
+    }
+
+    if (username.length > 18) {
+      setMessage('Username cannot exceed 18 characters.');
       return;
     }
 

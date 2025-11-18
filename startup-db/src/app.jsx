@@ -10,25 +10,35 @@ import { About } from './about/about';
 import { AuthState } from './login/authState';
 
 export default function App() {
-  const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
-  const [authState, setAuthState] = React.useState(
-    username ? AuthState.Authenticated : AuthState.Unauthenticated
-  );
+  const [username, setUsername] = React.useState('');
+  const [authState, setAuthState] = React.useState(AuthState.Unauthenticated);
 
   React.useEffect(() => {
-    const handleStorageChange = () => {
-      const storedUser = localStorage.getItem('username');
-      if (storedUser) {
-        setUsername(storedUser);
+    // Ask the server if the session is valid
+    fetch('/api/session', {
+      method: 'GET',
+      credentials: 'include',
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.authenticated) {
+        // Server says the session is valid
+        setUsername(data.username);
         setAuthState(AuthState.Authenticated);
+        localStorage.setItem('username', data.username);
       } else {
+        // Server says session NOT valid
         setUsername('');
         setAuthState(AuthState.Unauthenticated);
+        localStorage.removeItem('username');
       }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    })
+    .catch(() => {
+      // If error, treat as logged out
+      setUsername('');
+      setAuthState(AuthState.Unauthenticated);
+      localStorage.removeItem('username');
+    });
   }, []);
 
   return (
