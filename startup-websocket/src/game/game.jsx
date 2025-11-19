@@ -55,8 +55,6 @@ export function Game({username}) {
 
     // Handle a new guess
     function handleGuessSubmit(weaponName) {
-        const newScore = { name: username, score: 5 };
-        GameNotifier.broadcastEvent(username, newScore);
         if (!correctWeapon || hasWon) return;
 
         const guessedWeapon = getWeapon(weaponName);
@@ -89,6 +87,7 @@ export function Game({username}) {
 
     async function saveScore(score) {
         const newScore = { name: username, score: score };
+        GameNotifier.broadcastEvent(username, newScore);
         try {
             const response = await fetch('/api/scores', {
                 method: 'POST',
@@ -100,8 +99,6 @@ export function Game({username}) {
             if (!response.ok) {
                 console.error('Failed to save score');
             }
-
-            GameNotifier.broadcastEvent(username, newScore);
         } catch (err) {
             console.error('Error saving score:', err);
         }
@@ -120,8 +117,9 @@ export function Game({username}) {
     ));
 
     return (
-        <main className="container my-5 text-center">
-            <Players username={username} />
+        <>
+        <Players username={username} />
+        <main className="container mt-4 text-center">
             <div>
                 <p>Guess the Weapon of the Day!</p>
             </div>
@@ -156,5 +154,6 @@ export function Game({username}) {
             )}
             {message && <div className="text-danger text-center mt-3">{message}</div>}
         </main>
+        </>
     );
 }
