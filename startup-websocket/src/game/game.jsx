@@ -2,6 +2,8 @@ import React from "react";
 import "./game.css";
 import { AutoComplete } from "./autoComplete";
 import { getWeapon, compareWeapons } from "./weaponUtils";
+import { GameNotifier } from "./gameNotifier";
+import { Players } from "./playerNotif";
 
 export function Game({username}) {
     const [guesses, setGuesses] = React.useState([]);
@@ -84,19 +86,22 @@ export function Game({username}) {
     }
 
     async function saveScore(score) {
+        const newScore = { name: username, score: score };
         try {
-        const response = await fetch('/api/scores', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-            body: JSON.stringify({ name: username, score }),
-        });
+            const response = await fetch('/api/scores', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify(newScore),
+            });
 
-        if (!response.ok) {
-            console.error('Failed to save score');
-        }
+            if (!response.ok) {
+                console.error('Failed to save score');
+            }
+
+            GameNotifier.broadcastEvent(username, newScore)
         } catch (err) {
-        console.error('Error saving score:', err);
+            console.error('Error saving score:', err);
         }
     }
 
@@ -114,6 +119,7 @@ export function Game({username}) {
 
     return (
         <main className="container my-5 text-center">
+            <Players username={username} />
             <div>
                 <p>Guess the Weapon of the Day!</p>
             </div>

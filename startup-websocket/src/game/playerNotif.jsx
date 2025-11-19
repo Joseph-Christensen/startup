@@ -1,10 +1,10 @@
 import React from 'react';
 
 import {GameNotifier } from './gameNotifier';
-import './game.css';
+import './playerNotif.css';
 
 export function Players(props) {
-  const userName = props.userName;
+  const username = props.username;
 
   const [events, setEvent] = React.useState([]);
 
@@ -37,7 +37,7 @@ export function Players(props) {
   return (
     <div className='players'>
       Player
-      <span className='player-name'>{userName}</span>
+      <span className='player-name'>{username}</span>
       <div id='player-messages'>{createMessageArray()}</div>
     </div>
   );
