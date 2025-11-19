@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { GameNotifier } from './gameNotifier';
+import {GameNotifier } from './gameNotifier';
 import './game.css';
 
 export function Players(props) {
@@ -23,18 +23,10 @@ export function Players(props) {
   function createMessageArray() {
     const messageArray = [];
     for (const [i, event] of events.entries()) {
-      let message = 'unknown';
-      if (event.type === GameEvent.End) {
-        message = `scored ${event.value.score}`;
-      } else if (event.type === GameEvent.Start) {
-        message = `started a new game`;
-      } else if (event.type === GameEvent.System) {
-        message = event.value.msg;
-      }
+      let message = `${event.from} just found the weapon in ${event.value.score} guesses!`;
 
       messageArray.push(
         <div key={i} className='event'>
-          <span className={'player-event'}>{event.from.split('@')[0]}</span>
           {message}
         </div>
       );
