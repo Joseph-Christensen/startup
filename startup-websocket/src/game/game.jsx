@@ -55,6 +55,8 @@ export function Game({username}) {
 
     // Handle a new guess
     function handleGuessSubmit(weaponName) {
+        const newScore = { name: username, score: 5 };
+        GameNotifier.broadcastEvent(username, newScore);
         if (!correctWeapon || hasWon) return;
 
         const guessedWeapon = getWeapon(weaponName);
@@ -99,7 +101,7 @@ export function Game({username}) {
                 console.error('Failed to save score');
             }
 
-            GameNotifier.broadcastEvent(username, newScore)
+            GameNotifier.broadcastEvent(username, newScore);
         } catch (err) {
             console.error('Error saving score:', err);
         }

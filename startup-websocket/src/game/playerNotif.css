@@ -1,29 +1,18 @@
 .players {
-  flex: 1;
-  width: 100%;
-  padding: 0.5em;
+  position: fixed;
+  top: 200px;
+  left: 1rem;
+  width: 200px;     /* Adjust as you prefer */
+  z-index: 1;
+  pointer-events: none;   /* Let clicks pass through if desired */
 }
 
-.player-name {
-  color: rgb(118, 190, 210);
-  margin: 0 0.25em;
-}
-
-#player-messages {
-  padding-top: 0.25em;
-  opacity: 0.7;
-}
-
-.event {
-  color: rgb(69, 69, 69);
-}
-
-.player-event {
-  color: rgb(165, 220, 235);
-  margin: 0 0.25em;
-}
-
-.system-event {
-  color: rgb(221, 148, 40);
-  margin: 0 0.25em;
+#player-messages .event {
+  color: #198754;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  text-align: left;
+  pointer-events: auto;
 }
