@@ -151,3 +151,7 @@ This was pretty simple, all it was in the big picture was transitioning my code 
 ## Database
 
 All I did for this deliverable was transition my backend from storing on the server to storing on a database. This was simple but was also much harder to debug. Overall mongoDB was super simple and easy to use.
+
+## WebSocket
+
+This was a simple idea but very finnicky, this took me a lot longer than I thought but I did it eventually.
