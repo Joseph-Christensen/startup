@@ -2,6 +2,14 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const express = require('express');
 const uuid = require('uuid');
+const app = express();
+const DB = require('./database.js');
+const { peerProxy } = require('./peerProxy.js');
+
+const authCookieName = 'token';
+
+// The service port. In production the front-end code is statically hosted by the service on the same port.
+const PORT = process.env.PORT || 4000;
 
 const weapons = [
   { name: 'Liberator', category: 'Primary', type: 'Assault Rifle', damage: 90, armorPen: 'Light (2)', armorPenValue: 2, traits: ['None'] },
@@ -92,14 +100,6 @@ const weapons = [
   { name: 'Expendable Napalm', category: 'Support', type: 'Rocket Launcher', damage: 500, armorPen: 'Medium (3)', armorPenValue: 3, traits: ['Expendable', 'Incendiary'] },
   { name: 'Solo Silo', category: 'Support', type: 'Missile', damage: 4000, armorPen: 'Anti-Tank V (9)', armorPenValue: 9, traits: ['Targeting'] },
 ];
-
-const app = express();
-const DB = require('./database.js');
-
-const authCookieName = 'token';
-
-// The service port. In production the front-end code is statically hosted by the service on the same port.
-const PORT = process.env.PORT || 4000;
 
 // JSON body parsing using built-in middleware
 app.use(express.json());
@@ -389,6 +389,8 @@ function setAuthCookie(res, authToken) {
   });
 }
 
-app.listen(PORT, () => {
+const httpService = app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
+
+peerProxy(httpService);
